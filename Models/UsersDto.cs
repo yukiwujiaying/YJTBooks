@@ -11,7 +11,7 @@ namespace YJKBooks.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public ICollection<BookDto> favouritebooks { get; set; } = new List<BookDto>();
+        public ICollection<BookDto> FavouriteBooks { get; set; } = new List<BookDto>();
 
     }
 }
