@@ -26,6 +26,9 @@ namespace YJKBooks.Entities
 
         public ICollection<Book> FavouriteBooks { get; set; } = new List<Book>();
 
+        [MaxLength(500)]
+        public string Review { get; set; }
+
 
     }
 }

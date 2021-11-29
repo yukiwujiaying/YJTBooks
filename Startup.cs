@@ -25,12 +25,12 @@ namespace YJKBooks
             var connectionStringUsers = Configuration["connectionStrings:UsersInfoDBConnectionString"];
             var connectionStringBooks = Configuration["connectionStrings:BookInfoDBConnectionString"];
 
-            services.AddDbContext<UsersInfoContext>(o =>
+            services.AddDbContext<UsersInfoDbContext>(o =>
             {
                 o.UseSqlServer(connectionStringUsers);
             });
            
-            services.AddDbContext<BookInfoContext>(o =>
+            services.AddDbContext<BookInfoDbContext>(o =>
             {
                 o.UseSqlServer(connectionStringBooks);
             });
