@@ -22,7 +22,7 @@ namespace YJKBooks.Entities
         public string Description { get; set; }
         public long Price { get; set; }
         public string PictureUrl { get; set; }
-        public string Review { get; set; }
+        public ICollection<Reviews> BookReviews { get; set; }
 
     }
 }

@@ -11,10 +11,10 @@ namespace YJKBooks.Controllers
     [Route("api/testdatabase")]
     public class DummyControllers :ControllerBase
     {
-        private readonly BookInfoDbContext _Bookctx;
+        private readonly ApplicationDbContext _Bookctx;
         private readonly UsersInfoDbContext _Userctx;
 
-        public DummyControllers(BookInfoDbContext Bookctx, UsersInfoDbContext Usersctx)
+        public DummyControllers(ApplicationDbContext Bookctx, UsersInfoDbContext Usersctx)
         {
             _Bookctx = Bookctx ?? throw new ArgumentNullException(nameof(Bookctx));
             _Userctx = Usersctx ?? throw new ArgumentNullException(nameof(Usersctx));

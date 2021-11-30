@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using YJKBooks.Entities;
 
 namespace YJKBooks.Models
 {
@@ -21,7 +22,7 @@ namespace YJKBooks.Models
 
         public string PictureUrl { get; set; }
 
-        public string Review { get; set; }
+        public ICollection<ReviewDto> BookReviews { get; set; }
 
     }
 }

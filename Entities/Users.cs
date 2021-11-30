@@ -24,10 +24,9 @@ namespace YJKBooks.Entities
         [Required(ErrorMessage = "You should provide a valid address.")]
         public string Address { get; set; }
 
-        public ICollection<Book> FavouriteBooks { get; set; } = new List<Book>();
+        public ICollection<Book> FavouriteBooks { get; set; }
 
-        [MaxLength(500)]
-        public string Review { get; set; }
+        public ICollection<Reviews> UserReviews { get; set; }
 
 
     }

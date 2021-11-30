@@ -22,17 +22,14 @@ namespace YJKBooks
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionStringUsers = Configuration["connectionStrings:UsersInfoDBConnectionString"];
-            var connectionStringBooks = Configuration["connectionStrings:BookInfoDBConnectionString"];
+            
+            var connectionStringApplication = Configuration["connectionStrings:ApplicationDBConnectionString"];
 
-            services.AddDbContext<UsersInfoDbContext>(o =>
-            {
-                o.UseSqlServer(connectionStringUsers);
-            });
            
-            services.AddDbContext<BookInfoDbContext>(o =>
+           
+            services.AddDbContext<ApplicationDbContext>(o =>
             {
-                o.UseSqlServer(connectionStringBooks);
+                o.UseSqlServer(connectionStringApplication);
             });
             services.AddControllersWithViews();
 
