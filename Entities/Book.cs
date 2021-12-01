@@ -23,6 +23,14 @@ namespace YJKBooks.Entities
         public long Price { get; set; }
         public string PictureUrl { get; set; }
         public ICollection<Reviews> BookReviews { get; set; }
+        public enum Genre
+        {
+            Fiction,
+            Action_and_adventure,
+            Classic,
+            Horror
+
+        }
 
     }
 }
