@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,16 +24,16 @@ namespace YJKBooks.Controllers {
         }
 
         [HttpGet]
-        public ActionResult<List<Book>> GetBooks()
+        public async Task<ActionResult<List<Book>>> GetBooks()
         {
-            var books = context.Books.ToList();
-            return Ok(books);
+            return await context.Books.ToListAsync();
+           
         }
         [HttpGet("{id}")]
 
-        public ActionResult<Book> GetBook(int id)
+        public async Task<ActionResult<Book>> GetBook(int id)
         {
-            return context.Books.Find(id);
+            return await context.Books.FindAsync(id);
         }
 
     }
