@@ -10,8 +10,9 @@ namespace YJKBooks.Entities
         public int Id { get; private set; }
         public string Title { get; set; }
         public string Author { get; set; }
-
+        public string PictureUrl { get; set; }
         public string Synopsis { get; set; }
-        public string Link { get; set; }
+        public string AmazonLink { get; set; }
+        public ICollection<Review> BookReviews { get; set; }
     }
 }
