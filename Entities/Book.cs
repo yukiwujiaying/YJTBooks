@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace YJKBooks.Entities
 {
-    public class Book
+    public partial class Book
     {
         //Entities is ORM you can query and manipultr data from a database using OOP
         //what you want to pass in to the data base
@@ -23,14 +23,10 @@ namespace YJKBooks.Entities
         public long Price { get; set; }
         public string PictureUrl { get; set; }
         public ICollection<Reviews> BookReviews { get; set; }
-        public enum Genre
-        {
-            Fiction,
-            Action_and_adventure,
-            Classic,
-            Horror
+        public Genre BookGenre { get; set; }
+        
 
-        }
+        
 
     }
 }

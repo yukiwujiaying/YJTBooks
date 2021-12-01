@@ -25,8 +25,6 @@ namespace YJKBooks
             
             var connectionStringApplication = Configuration["connectionStrings:ApplicationDBConnectionString"];
 
-           
-           
             services.AddDbContext<ApplicationDbContext>(o =>
             {
                 o.UseSqlServer(connectionStringApplication);
