@@ -23,13 +23,10 @@ namespace YJKBooks
         public void ConfigureServices(IServiceCollection services)
         { 
 
-           // var connectionStringUsers = Configuration["connectionStrings:UsersInfoDBConnectionString"];
-            //var connectionStringBooks = Configuration["ConnectionStrings:BookInfoDBConnectionString"];
-
             services.AddControllersWithViews();
+
             services.AddDbContext<BookStoreContext>(o =>
             {
-              //  o.UseSqlServer(connectionStringUsers);
                 o.UseSqlServer(Configuration.GetConnectionString("BookInfoDBConnectionString"));
 
             });
