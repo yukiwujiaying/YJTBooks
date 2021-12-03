@@ -27,7 +27,7 @@ namespace YJKBooks.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetProduct(int id)
+        public async Task<ActionResult<Book>> GetBook(int id)
         {
             return await _context.Books.FindAsync(id);
         }

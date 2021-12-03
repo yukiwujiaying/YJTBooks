@@ -24,6 +24,9 @@ namespace YJKBooks.Entities
         [Required(ErrorMessage = "You should provide a valid address.")]
         public string Address { get; set; }
 
+        [Required(ErrorMessage = "You should set a password!")]
+        public string Password { get; set; }
+
         public ICollection<Book> FavouriteBooks { get; set; }
 
         public ICollection<Reviews> UserReviews { get; set; }

@@ -7,7 +7,13 @@
             Fiction,
             Fantasy,
             Classic,
-            Romance
+            Romance,
+            Drama, 
+            SciFi,
+            Tragedy,
+            Philosophical,
+            Modernist,
+            MagicRealism,
 
         }
 
