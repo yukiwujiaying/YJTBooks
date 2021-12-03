@@ -27,12 +27,13 @@ namespace YJKBooks
 
 
             services.AddControllersWithViews();
-
+             //Adding the Swagger UI 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
             });
 
+            //Adding the ConnectionString to the DBContext
             services.AddDbContext<BookStoreContext>(o =>
             {
                 o.UseSqlServer(Configuration.GetConnectionString("BookInfoDBConnectionString"));
