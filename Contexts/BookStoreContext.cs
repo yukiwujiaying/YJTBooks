@@ -28,7 +28,7 @@ namespace YJKBooks.Contexts
                     Title = "The Hobbit",
                     Author = "J. R. R. Tolkien",
                     BookGenre = Book.Genre.Fantasy,
-                    Price = (long)6.55,
+                    Price = 6.55,
                     PictureUrl = "http://4.bp.blogspot.com/-Q2jfDj24R9Q/UMX-5B1zJ2I/AAAAAAAAAHw/0rOGgxaYtnw/s1600/The+Hobbit.jpg",
                     Synopsis = "Bilbo Baggins enjoys a quiet and contented life, with no desire to travel far from the comforts of home; then one day the wizard Gandalf and a band of dwarves arrive unexpectedly and enlist his services – as a burglar – on a dangerous expedition to raid the treasure-hoard of Smaug the dragon. Bilbo’s life is never to be the same again.",
                     AmazonLink = "https://www.amazon.co.uk/Hobbit-J-R-Tolkien/dp/0007458428/ref=asc_df_0007458428?tag=bingshoppinga-21&linkCode=df0&hvadid=80882880812450&hvnetw=o&hvqmt=e&hvbmt=be&hvdev=c&hvlocint=&hvlocphy=&hvtargid=pla-4584482456235141&psc=1"
@@ -39,7 +39,7 @@ namespace YJKBooks.Contexts
                     Title = "The Lord of the Rings ",
                     Author = "J. R. R. Tolkien",
                     BookGenre = Book.Genre.Fantasy,
-                    Price = (long)39.99,
+                    Price = 39.99,
                     PictureUrl = "http://d20eq91zdmkqd.cloudfront.net/assets/images/book/large/9780/0075/9780007581146.jpg",
                     Synopsis = "Sauron, the Dark Lord, has gathered to him all the Rings of Power – the means by which he intends to rule Middle-earth. All he lacks in his plans for dominion is the One Ring – the ring that rules them all – which has fallen into the hands of the hobbit, Bilbo Baggins. In a sleepy village in the Shire, young Frodo Baggins finds himself faced with an immense task, as the Ring is entrusted to his care. He must leave his home and make a perilous journey across the realms of Middle-earth to the Crack of Doom, deep inside the territories of the Dark Lord. There he must destroy the Ring forever and foil the Dark Lord in his evil purpose.",
                     AmazonLink = "https://www.amazon.co.uk/Lord-Rings-Boxed-Set/dp/0007581149/ref=asc_df_0007581149?tag=bingshoppinga-21&linkCode=df0&hvadid=80608002971184&hvnetw=o&hvqmt=e&hvbmt=be&hvdev=c&hvlocint=&hvlocphy=&hvtargid=pla-4584207578206752&psc=1"
@@ -50,7 +50,7 @@ namespace YJKBooks.Contexts
                     Title = "Pride and Prejudice",
                     Author = "Jane Austen",
                     BookGenre = Book.Genre.Romance,
-                    Price = (long)5.39,
+                    Price = 5.39,
                     PictureUrl = "/images/books/prideandprejudice.png",
                     Synopsis = "The pride of high-ranking Mr Darcy and the prejudice of middle-class Elizabeth Bennet conduct an absorbing dance through the rigid social hierarchies of early-nineteenth-century England, with the passion of the two unlikely lovers growing as their union seems ever more improbable.",
                     AmazonLink = "https://www.amazon.co.uk/Pride-Prejudice-Alma-Classics-Evergreens/dp/1847493696/ref=asc_df_1847493696?tag=bingshoppinga-21&linkCode=df0&hvadid=80401845130311&hvnetw=o&hvqmt=e&hvbmt=be&hvdev=c&hvlocint=&hvlocphy=&hvtargid=pla-4584001419445871&psc=1"
@@ -64,7 +64,7 @@ namespace YJKBooks.Contexts
                     PictureUrl = "/images/books/AnnaKarenina.png",
                     Synopsis = "Anna Karenina tells of the doomed love affair between the sensuous and rebellious Anna and the dashing officer, Count Vronsky. Tragedy unfolds as Anna rejects her passionless marriage and must endure the hypocrisies of society. Set against a vast and richly textured canvas of nineteenth-century Russia, the novel's seven major characters create a dynamic imbalance, playing out the contrasts of city and country life and all the variations on love and family happiness. While previous versions have softened the robust, and sometimes shocking, quality of Tolstoy's writing, Pevear and Volokhonsky have produced a translation true to his powerful voice. This award-winning team's authoritative edition also includes an illuminating introduction and explanatory notes. Beautiful, vigorous, and eminently readable, this Anna Karenina will be the definitive text for generations to come.",
                     BookGenre = Book.Genre.Drama,
-                    Price = (long)12.99,
+                    Price = 12.99,
                     AmazonLink = "https://www.amazon.co.uk/Anna-Karenina-Wordsworth-Classics-Tolstoy/dp/1853262714"
                 },
 
@@ -74,7 +74,7 @@ namespace YJKBooks.Contexts
                     Title = "1984",
                     Author = "George Orwell",
                     PictureUrl = "/images/books/1984.png",
-                    Price = (long)5.99,
+                    Price = 5.99,
                     Synopsis = "Winston Smith attempts to fights back against a totalitarian Party that rules Oceania and his entire life. It is a dystopian novel that tells the story of Winston Smith and warns of the dangers of a totalitarian government that rules through fear, surveillance, propaganda, and brainwashing.",
                     BookGenre = Book.Genre.SciFi,
                     AmazonLink = "https://www.amazon.co.uk/1984-Nineteen-Eighty-Four-Twentieth-Masterpiece/dp/184697576X/ref=sr_1_1_sspa?crid=3SC3VA96NF93Z&keywords=1984+george+orwell&qid=1638528594&s=books&sprefix=1984%2Cstripbooks%2C164&sr=1-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzTkRPWkQ4MDNLMlpQJmVuY3J5cHRlZElkPUEwODI1NzI1MVkzWUFEWUhTMVM1TCZlbmNyeXB0ZWRBZElkPUEwNjk5MzU2RFNJSTdLSjlKVUU0JndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==",
@@ -86,7 +86,7 @@ namespace YJKBooks.Contexts
                     Title = "Hamlet",
                     Author = "William Shakespeare",
                     PictureUrl = "/images/books/hamlet.png",
-                    Price = (long)7.99,
+                    Price = 7.99,
                     Synopsis = "Prince Hamlet is depressed. Having been summoned home to Denmark from school in Germany to attend his father's funeral, he is shocked to find his mother Gertrude already remarried. The Queen has wed Hamlet's Uncle Claudius, the dead king's brother.",
                     BookGenre = Book.Genre.Tragedy,
                     AmazonLink = "https://www.amazon.co.uk/Hamlet-William-Shakespeare/dp/B09JJJ7234/ref=sr_1_1_sspa?crid=Y8TUQY6FUX5R&keywords=hamlet+book&qid=1638529096&s=books&sprefix=hamlet%2Cstripbooks%2C172&sr=1-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFQSFNPUlJZNURZOE8mZW5jcnlwdGVkSWQ9QTAwMzY3NDU3ODk4SFAxRENNUDEmZW5jcnlwdGVkQWRJZD1BMDMyNjk2MklETVBCTUxCMzZSVyZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=",
@@ -95,7 +95,7 @@ namespace YJKBooks.Contexts
                 new Book
                 {
                     BookId = 7,
-                    Price = (long)20.32,
+                    Price = 20.32,
                     Title = "The Stranger",
                     Author = "Albert Camus",
                     PictureUrl = "/images/books/thestranger.png",
@@ -107,7 +107,7 @@ namespace YJKBooks.Contexts
                 new Book
                 {
                     BookId = 8,
-                    Price = (long)7.79,
+                    Price = 7.79,
                     Title = "The Trial",
                     Author = "Franz Kafka",
                     PictureUrl = "/images/books/thetrial.png",
@@ -142,7 +142,7 @@ namespace YJKBooks.Contexts
                 new Book
                 {
                     BookId = 11,
-                    Price = (long)10.99,
+                    Price = 10.99,
                     Title = "Dead Souls",
                     Author = "Nikolai Gogol",
                     PictureUrl = "/images/books/deadsouls.png",
@@ -153,7 +153,7 @@ namespace YJKBooks.Contexts
                 new Book
                 {
                     BookId = 12,
-                    Price = (long)12.69,
+                    Price = 12.69,
                     Title = "Ulysses",
                     Author = "James Joyce",
                     PictureUrl = "/images/books/ulysses.png",
@@ -169,7 +169,7 @@ namespace YJKBooks.Contexts
                     Author = "Stephen King",
                     AmazonLink = "https://www.amazon.co.uk/Rita-Hayworth-and-Shawshank-Redemption/dp/1982155752/ref=sr_1_5?keywords=Shawshank+Redemption+book&qid=1638545684&sr=8-5",
                     Synopsis = "1 New York Times bestselling author Stephen King’s beloved novella, Rita Hayworth and Shawshank Redemption—the basis for the Best Picture Academy Award–nominee The Shawshank Redemption—about an unjustly imprisoned convict who seeks a strangely satisfying revenge, is now available for the first time as a standalone book.A mesmerizing tale of unjust imprisonment and offbeat escape, Rita Hayworth and Shawshank Redemption is one of Stephen King’s most beloved and iconic stories, and it helped make Castle Rock a place readers would * to over and over again.",
-                    Price = (long)9.78,
+                    Price = 9.78,
                     PictureUrl = "/images/books/Rita_Hayworth_and_Shawshank_Redemption.jpg",
                     BookGenre = Book.Genre.Fiction,
 
@@ -182,7 +182,7 @@ namespace YJKBooks.Contexts
                      Author = "Nicholas Sparks",
                      AmazonLink = "https://www.amazon.co.uk/Notebook-Sparks-Nicholas-Paperback/dp/B00IIB02QK/ref=sr_1_3?crid=31BQIM5HJB63N&keywords=the+notebook+nicholas+sparks&qid=1638546490&s=books&sprefix=the+notebook+ni%2Cstripbooks%2C188&sr=1-3",
                      Synopsis = "The Notebook is the love story to end all love stories - it will break your heart, heal it back up and break it all over again.",
-                     Price = (long)6.69,
+                     Price = 6.69,
                      PictureUrl = "/images/books/The_Notebook.jpg",
                      BookGenre = Book.Genre.Romance,
                  },
@@ -193,7 +193,7 @@ namespace YJKBooks.Contexts
                      Author = "John Steinbeck",
                      AmazonLink = "https://www.amazon.co.uk/Mice-Men-Penguin-Red-Classics/dp/0141023570/ref=sr_1_1?keywords=Of+Mice+and+Men+by+John+Steinbeck&qid=1638546894&s=books&sr=1-1",
                      Synopsis = "Drifters in search of work, George and his childlike friend Lennie, have nothing in the world except the clothes on their back - and a dream that one day they will have some land of their own. Eventually they find work on a ranch in California's Salinas Valley, but their hopes are dashed as Lennie - struggling against extreme cruelty, misunderstanding and feelings of jealousy - becomes a victim of his own strength. Tackling universal themes of friendship and shared vision, and giving a voice to America's lonely and dispossessed, Of Mice and Men remains Steinbeck's most popular work, achieving success as a novel, Broadway play and three acclaimed films.",
-                     Price = (long)6.99,
+                     Price = 6.99,
                      PictureUrl = "/images/books/Of_Mice_and_Men.jpg",
                      BookGenre = Book.Genre.Tragedy,
                  },
@@ -205,7 +205,7 @@ namespace YJKBooks.Contexts
                     Author = "George R.R. Martin",
                     AmazonLink = "https://www.amazon.co.uk/Fire-Blood-Thrones-Targaryen-History/dp/0008402787/ref=pd_sbs_1/262-6485344-6957429?pd_rd_w=XJWhm&pf_rd_p=c90ec214-58e5-4089-9469-cee2bb7b5d96&pf_rd_r=JCC1960WCAT3HHMP9Q0E&pd_rd_r=1c39f0f3-c3dd-4b88-ba9c-9eb848a741d4&pd_rd_wg=WTZVp&pd_rd_i=0008402787&psc=1",
                     Synopsis = "Centuries before A Game of Thrones, an even greater game began, one that set the skies alight with dragon flame and saw the Seven Kingdoms turned to ash. So began the Targaryens’ bloody rule, with fire and blood. Setting brother against brother, mother against daughter, and dragon against dragon. Chronicled by a learned maester of the Citadel, this thrilling and bloody history of Westeros tells the story of where the battle for the Iron Throne began…",
-                    Price = (long)5.99,
+                    Price = 5.99,
                     PictureUrl = "/images/books/Fire_and_blood.jpg",
                     BookGenre = Book.Genre.Fantasy,
                 },
@@ -217,7 +217,7 @@ namespace YJKBooks.Contexts
                     Author = "Plato",
                     AmazonLink = "https://www.amazon.co.uk/Republic-Penguin-Classics-Plato/dp/0140455116/ref=sr_1_3?crid=2WSL8U42WFLDJ&keywords=plato+republic&qid=1638547554&s=books&sprefix=plato+%2Cstripbooks%2C502&sr=1-3",
                     Synopsis = "Plato's Republic is widely acknowledged as one of the most influential works in the history of philosophy. Presented in the form of a dialogue between Socrates and three different interlocutors, it is an inquiry into the notion of a perfect community and the ideal individual within it. During the conversation other questions are raised: what is goodness; what is reality; what is knowledge; what is the purpose of education? With remarkable lucidity and deft use of allegory, Plato arrives at a depiction of a state bound by harmony and ruled by 'philosopher kings'.",
-                    Price = (long)7.19,
+                    Price = 7.19,
                     PictureUrl = "/images/books/The_Republic.jpg",
                     BookGenre = Book.Genre.Philosophical,
                 },
@@ -229,7 +229,7 @@ namespace YJKBooks.Contexts
                     Author = "Richard Osman",
                     AmazonLink = "https://www.amazon.co.uk/s?k=the+man+who+died+twice+richard+osman&i=stripbooks&crid=3Q844228FAPDJ&sprefix=The+men+who+di%2Cstripbooks%2C176&ref=nb_sb_ss_sc_1_14",
                     Synopsis = "Elizabeth has received a letter from an old colleague, a man with whom she has a long history. He's made a big mistake, and he needs her help. His story involves stolen diamonds, a violent mobster, and a very real threat to his life.As bodies start piling up, Elizabeth enlists Joyce, Ibrahim and Ron in the hunt for a ruthless murderer. And if they find the diamonds too? Well, wouldn't that be a bonus?But this time they are up against an enemy who wouldn't bat an eyelid at knocking off four septuagenarians. Can the Thursday Murder Club find the killer (and the diamonds) before the killer finds them?",
-                    Price = (long)9.00,
+                    Price = 9.00,
                     PictureUrl = "/images/books/Themanwhodiestwice.jpg",
                     BookGenre = Book.Genre.Fiction,
                 },
@@ -242,7 +242,7 @@ namespace YJKBooks.Contexts
                     AmazonLink = "https://www.amazon.co.uk/Hunger-Games-Trilogy-Suzanne-Collins/dp/1407135449/ref=sr_1_11?keywords=hunger+games+book+1&qid=1638371618&sr=8-11",
                     PictureUrl = "/images/books/The-Hunger-Games.jpg",
                     Synopsis = "In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol is harsh and cruel and keeps the districts in line by forcing them all to send one boy and one girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV.Sixteen-year-old Katniss Everdeen, who lives alone with her mother and younger sister, regards it as a death sentence when she steps forward to take her sister's place in the Games. But Katniss has been close to dead before—and survival, for her, is second nature. Without really meaning to, she becomes a contender. But if she is to win, she will have to start making choices that weight survival against humanity and life against love.",
-                    Price = (long)17.09,
+                    Price = 17.09,
                     BookGenre = Book.Genre.Fiction,
 
                 },
@@ -254,7 +254,7 @@ namespace YJKBooks.Contexts
                     AmazonLink = "https://www.amazon.co.uk/East-Eden-John-Steinbeck/dp/0670287385",
                     PictureUrl = "https://bookaudio.online/uploads/images/media/184/jT_yinMH8Xl8UiU3-john-steinbeck-east-of-eden.jpg",
                     Synopsis = "In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol is harsh and cruel and keeps the districts in line by forcing them all to send one boy and one girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV.Sixteen-year-old Katniss Everdeen, who lives alone with her mother and younger sister, regards it as a death sentence when she steps forward to take her sister's place in the Games. But Katniss has been close to dead before—and survival, for her, is second nature. Without really meaning to, she becomes a contender. But if she is to win, she will have to start making choices that weight survival against humanity and life against love.",
-                    Price = (long)61.64,
+                    Price = 61.64,
                     BookGenre = Book.Genre.Fiction,
 
                 }

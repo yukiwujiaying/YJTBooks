@@ -18,7 +18,7 @@ namespace YJKBooks.Entities
         public int UserId { get; set; }
         public User User { get; set; } */
         public ICollection<Review> BookReviews { get; set; }
-        public long Price { get; set; }
+        public double Price { get; set; }
         public Genre BookGenre { get; set; }
     }
 }
