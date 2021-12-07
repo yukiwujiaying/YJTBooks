@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YJKBooks.Entities
 {
-    public class Book
+    public partial class Book
     {
         public int BookId { get; set; }
         public string Title { get; set; }
@@ -18,5 +18,7 @@ namespace YJKBooks.Entities
         public int UserId { get; set; }
         public User User { get; set; } */
         public ICollection<Review> BookReviews { get; set; }
+        public long Price { get; set; }
+        public Genre BookGenre { get; set; }
     }
 }
