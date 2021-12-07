@@ -18,7 +18,7 @@ namespace YJKBooks.Models
         public string Link { get; set; }
         public string Synopsis { get; set; }
 
-        public long Price { get; set; }
+        public double Price { get; set; }
 
         public string PictureUrl { get; set; }
 
