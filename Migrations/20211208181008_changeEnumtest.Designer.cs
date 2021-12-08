@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YJKBooks.Contexts;
 
 namespace YJKBooks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208181008_changeEnumtest")]
+    partial class changeEnumtest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,8 @@ namespace YJKBooks.Migrations
                     b.Property<string>("Author")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("BookGenre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(24)");
+                    b.Property<int>("BookGenre")
+                        .HasColumnType("int");
 
                     b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");
@@ -62,7 +63,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 1,
                             Author = "J. R. R. Tolkien",
-                            BookGenre = "Fantasy",
+                            BookGenre = 1,
                             Link = "https://www.amazon.co.uk/Hobbit-J-R-Tolkien/dp/0007458428/ref=asc_df_0007458428?tag=bingshoppinga-21&linkCode=df0&hvadid=80882880812450&hvnetw=o&hvqmt=e&hvbmt=be&hvdev=c&hvlocint=&hvlocphy=&hvtargid=pla-4584482456235141&psc=1",
                             PictureUrl = "http://4.bp.blogspot.com/-Q2jfDj24R9Q/UMX-5B1zJ2I/AAAAAAAAAHw/0rOGgxaYtnw/s1600/The+Hobbit.jpg",
                             Price = 6.5499999999999998,
@@ -73,7 +74,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 2,
                             Author = "J. R. R. Tolkien",
-                            BookGenre = "Fantasy",
+                            BookGenre = 1,
                             Link = "https://www.amazon.co.uk/Lord-Rings-Boxed-Set/dp/0007581149/ref=asc_df_0007581149?tag=bingshoppinga-21&linkCode=df0&hvadid=80608002971184&hvnetw=o&hvqmt=e&hvbmt=be&hvdev=c&hvlocint=&hvlocphy=&hvtargid=pla-4584207578206752&psc=1",
                             PictureUrl = "http://d20eq91zdmkqd.cloudfront.net/assets/images/book/large/9780/0075/9780007581146.jpg",
                             Price = 39.990000000000002,
@@ -84,7 +85,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 3,
                             Author = "Jane Austen",
-                            BookGenre = "Romance",
+                            BookGenre = 3,
                             Link = "https://www.amazon.co.uk/Pride-Prejudice-Alma-Classics-Evergreens/dp/1847493696/ref=asc_df_1847493696?tag=bingshoppinga-21&linkCode=df0&hvadid=80401845130311&hvnetw=o&hvqmt=e&hvbmt=be&hvdev=c&hvlocint=&hvlocphy=&hvtargid=pla-4584001419445871&psc=1",
                             PictureUrl = "/images/books/Pride.png",
                             Price = 5.3899999999999997,
@@ -95,7 +96,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 4,
                             Author = "Leo Tolsoy",
-                            BookGenre = "Drama",
+                            BookGenre = 4,
                             Link = "https://www.amazon.co.uk/Anna-Karenina-Wordsworth-Classics-Tolstoy/dp/1853262714",
                             PictureUrl = "/images/books/Anna.png",
                             Price = 12.99,
@@ -106,7 +107,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 5,
                             Author = "George Orwell",
-                            BookGenre = "SciFi",
+                            BookGenre = 5,
                             Link = "https://www.amazon.co.uk/1984-Nineteen-Eighty-Four-Twentieth-Masterpiece/dp/184697576X/ref=sr_1_1_sspa?crid=3SC3VA96NF93Z&keywords=1984+george+orwell&qid=1638528594&s=books&sprefix=1984%2Cstripbooks%2C164&sr=1-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzTkRPWkQ4MDNLMlpQJmVuY3J5cHRlZElkPUEwODI1NzI1MVkzWUFEWUhTMVM1TCZlbmNyeXB0ZWRBZElkPUEwNjk5MzU2RFNJSTdLSjlKVUU0JndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==",
                             PictureUrl = "/images/books/1984.png",
                             Price = 5.9900000000000002,
@@ -117,7 +118,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 6,
                             Author = "William Shakespeare",
-                            BookGenre = "Tragedy",
+                            BookGenre = 6,
                             Link = "https://www.amazon.co.uk/Hamlet-William-Shakespeare/dp/B09JJJ7234/ref=sr_1_1_sspa?crid=Y8TUQY6FUX5R&keywords=hamlet+book&qid=1638529096&s=books&sprefix=hamlet%2Cstripbooks%2C172&sr=1-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFQSFNPUlJZNURZOE8mZW5jcnlwdGVkSWQ9QTAwMzY3NDU3ODk4SFAxRENNUDEmZW5jcnlwdGVkQWRJZD1BMDMyNjk2MklETVBCTUxCMzZSVyZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=",
                             PictureUrl = "/images/books/Hamlet.png",
                             Price = 7.9900000000000002,
@@ -128,7 +129,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 7,
                             Author = "Albert Camus",
-                            BookGenre = "Philosophical",
+                            BookGenre = 7,
                             Link = "https://www.amazon.co.uk/Stranger-Albert-Camus-Paperback/dp/B01181UBSU/ref=sr_1_3?crid=6SCM9M2XABXI&keywords=the+stranger+book+albert+camus&qid=1638529430&sprefix=the+stranger+book%2Cstripbooks%2C167&sr=8-3",
                             PictureUrl = "/images/books/Stranger.png",
                             Price = 20.32,
@@ -139,7 +140,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 8,
                             Author = "Franz Kafka",
-                            BookGenre = "Fiction",
+                            BookGenre = 0,
                             Link = "https://www.amazon.co.uk/Trial-Legend-Classics-Franz-Kafka/dp/1789559529/ref=sr_1_2_sspa?keywords=the+trial&qid=1638529616&sr=8-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExTFpIOVdCQlpHS0c2JmVuY3J5cHRlZElkPUEwNjA2MjIwRDhYQklHU0xaNldDJmVuY3J5cHRlZEFkSWQ9QTA1MTM5MTQxUzMyNkIxRFo2RDBFJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==",
                             PictureUrl = "/images/books/Trial.png",
                             Price = 7.79,
@@ -150,7 +151,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 9,
                             Author = "Ralph Ellison",
-                            BookGenre = "Fiction",
+                            BookGenre = 0,
                             Link = "https://www.amazon.co.uk/Invisible-Man-Penguin-Modern-Classics/dp/0141184426/ref=sr_1_1?crid=3GBXQS9JTZZ2Q&keywords=invisible+man+ralph+ellison&qid=1638529783&sprefix=invisible+man%2Caps%2C189&sr=8-1",
                             PictureUrl = "/images/books/Invisible.png",
                             Price = 6.9900000000000002,
@@ -161,7 +162,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 10,
                             Author = "Salman Rushdie",
-                            BookGenre = "MagicRealism",
+                            BookGenre = 9,
                             Link = "https://www.amazon.co.uk/Midnights-Children-Vintage-Classics-Rushdie/dp/0099511894/ref=sr_1_1?crid=2BA0EOIER0WQP&keywords=midnight+children+by+salman+rushdie&qid=1638530052&sprefix=midnight+ch%2Caps%2C170&sr=8-1",
                             PictureUrl = "/images/books/Midnight.png",
                             Price = 8.1899999999999995,
@@ -172,7 +173,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 11,
                             Author = "Nikolai Gogol",
-                            BookGenre = "Fiction",
+                            BookGenre = 0,
                             Link = "https://www.amazon.co.uk/Dead-Souls-Nikolai-Gogol/dp/B084DGQKDS/ref=sr_1_1_sspa?keywords=Dead+Souls&qid=1638530381&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFKMVBQRzk3NU9MRk0mZW5jcnlwdGVkSWQ9QTA5OTU2MTZTNDgxSFBQNFhNVEgmZW5jcnlwdGVkQWRJZD1BMDgwMjgxMjFRMDI3MUdYUVhHUTAmd2lkZ2V0TmFtZT1zcF9hdGYmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl",
                             PictureUrl = "/images/books/Deadsouls.png",
                             Price = 10.99,
@@ -183,7 +184,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 12,
                             Author = "James Joyce",
-                            BookGenre = "Modernist",
+                            BookGenre = 8,
                             Link = "https://www.amazon.co.uk/James-Joyce-Ulysses-Penguin-Classics/dp/B00I611LBM/ref=sr_1_1?crid=6VV1MUKPR88A&keywords=ulysses+james+joyce+penguin&qid=1638530666&s=books&sprefix=ulysses+james+joyce+pen%2Cstripbooks%2C150&sr=1-1",
                             PictureUrl = "/images/books/Ulysses.png",
                             Price = 12.69,
@@ -194,7 +195,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 13,
                             Author = "Stephen King",
-                            BookGenre = "Fiction",
+                            BookGenre = 0,
                             Link = "https://www.amazon.co.uk/Rita-Hayworth-and-Shawshank-Redemption/dp/1982155752/ref=sr_1_5?keywords=Shawshank+Redemption+book&qid=1638545684&sr=8-5",
                             PictureUrl = "/images/books/Rita Hayworth and Shawshank Redemption.jpg",
                             Price = 9.7799999999999994,
@@ -205,7 +206,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 14,
                             Author = "Nicholas Sparks",
-                            BookGenre = "Romance",
+                            BookGenre = 3,
                             Link = "https://www.amazon.co.uk/Notebook-Sparks-Nicholas-Paperback/dp/B00IIB02QK/ref=sr_1_3?crid=31BQIM5HJB63N&keywords=the+notebook+nicholas+sparks&qid=1638546490&s=books&sprefix=the+notebook+ni%2Cstripbooks%2C188&sr=1-3",
                             PictureUrl = "/images/books/The_Notebook.jpg",
                             Price = 6.6900000000000004,
@@ -216,7 +217,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 15,
                             Author = "John Steinbeck",
-                            BookGenre = "Tragedy",
+                            BookGenre = 6,
                             Link = "https://www.amazon.co.uk/Mice-Men-Penguin-Red-Classics/dp/0141023570/ref=sr_1_1?keywords=Of+Mice+and+Men+by+John+Steinbeck&qid=1638546894&s=books&sr=1-1",
                             PictureUrl = "/images/books/Of Mice and Men.jpg",
                             Price = 6.9900000000000002,
@@ -227,7 +228,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 16,
                             Author = "George R.R. Martin",
-                            BookGenre = "Fantasy",
+                            BookGenre = 1,
                             Link = "https://www.amazon.co.uk/Fire-Blood-Thrones-Targaryen-History/dp/0008402787/ref=pd_sbs_1/262-6485344-6957429?pd_rd_w=XJWhm&pf_rd_p=c90ec214-58e5-4089-9469-cee2bb7b5d96&pf_rd_r=JCC1960WCAT3HHMP9Q0E&pd_rd_r=1c39f0f3-c3dd-4b88-ba9c-9eb848a741d4&pd_rd_wg=WTZVp&pd_rd_i=0008402787&psc=1",
                             PictureUrl = "/images/books/Fire and blood.jpg",
                             Price = 5.9900000000000002,
@@ -238,7 +239,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 17,
                             Author = "Plato",
-                            BookGenre = "Philosophical",
+                            BookGenre = 7,
                             Link = "https://www.amazon.co.uk/Republic-Penguin-Classics-Plato/dp/0140455116/ref=sr_1_3?crid=2WSL8U42WFLDJ&keywords=plato+republic&qid=1638547554&s=books&sprefix=plato+%2Cstripbooks%2C502&sr=1-3",
                             PictureUrl = "/images/books/The Republic.jpg",
                             Price = 7.1900000000000004,
@@ -249,7 +250,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 18,
                             Author = "Richard Osman",
-                            BookGenre = "Fiction",
+                            BookGenre = 0,
                             Link = "https://www.amazon.co.uk/s?k=the+man+who+died+twice+richard+osman&i=stripbooks&crid=3Q844228FAPDJ&sprefix=The+men+who+di%2Cstripbooks%2C176&ref=nb_sb_ss_sc_1_14",
                             PictureUrl = "/images/books/The man who dies twice.jpg",
                             Price = 9.0,
@@ -260,7 +261,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 19,
                             Author = "Suzanne Collins",
-                            BookGenre = "Fiction",
+                            BookGenre = 0,
                             Link = "https://www.amazon.co.uk/Hunger-Games-Trilogy-Suzanne-Collins/dp/1407135449/ref=sr_1_11?keywords=hunger+games+book+1&qid=1638371618&sr=8-11",
                             PictureUrl = "/images/books/The-Hunger-Games.jpg",
                             Price = 17.09,
@@ -271,7 +272,7 @@ namespace YJKBooks.Migrations
                         {
                             Id = 20,
                             Author = "John Steinbeck",
-                            BookGenre = "Fiction",
+                            BookGenre = 0,
                             Link = "https://www.amazon.co.uk/East-Eden-John-Steinbeck/dp/0670287385",
                             PictureUrl = "https://bookaudio.online/uploads/images/media/184/jT_yinMH8Xl8UiU3-john-steinbeck-east-of-eden.jpg",
                             Price = 61.640000000000001,
