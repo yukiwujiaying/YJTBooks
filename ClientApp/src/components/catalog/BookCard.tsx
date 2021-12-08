@@ -10,17 +10,23 @@ interface Props {
 
 export default function BookCard({ book }: Props) {
     return (
-        <Card>
+        <Card sx={{ display: 'flex' }}>
             <CardMedia
                 component="img"
-                height="140"
+                //height="140"
                 image={book.pictureUrl}
-                sx={{ objectFit: 'contain', bgcolor: 'primary.light' }}
+                sx={{ objectFit: 'contain', bgcolor: 'primary.light',width: 151 }}
                 title={book.title}
             />
             <CardContent>
                 <Typography gutterBottom color='secondary' variant="h5">
+                    {book.title}                  
+                </Typography>
+                <Typography variant="h6">
                     £{(book.price).toFixed(2)}
+                </Typography>
+                <Typography>
+                   {book.bookGenre}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {book.author}

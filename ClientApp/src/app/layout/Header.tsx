@@ -12,12 +12,14 @@ interface Props{
 const midlinks=[
     {title:'catalog', path:'/catalog'},
     {title:'about', path:'/about'},
+    {title:'contact', path:'/contact'}
 
 ]
 
 const rightLinks =[
     {title:'login', path:'/login'},
-    {title:'register', path:'/register'}
+    {title:'register', path:'/register'},
+    {title:'Profile', path:'/userprofile'}
 ]
 
 const navStyles={

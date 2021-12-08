@@ -1,9 +1,10 @@
 import React from 'react';
-import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
+import { Button, Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Book } from "../../app/layout/models/book";
+import { Link } from 'react-router-dom';
 
 export default function BookDetails() {
     let { Id } = useParams();
@@ -36,10 +37,7 @@ export default function BookDetails() {
                                 <TableCell>Title</TableCell>
                                 <TableCell>{Book.title}</TableCell>
                             </TableRow>
-                            <TableRow>
-                                <TableCell>Synopsis</TableCell>
-                                <TableCell>{Book.synopsis}</TableCell>
-                            </TableRow>
+                           
                             <TableRow>
                                 <TableCell>Author</TableCell>
                                 <TableCell>{Book.author}</TableCell>
@@ -49,8 +47,12 @@ export default function BookDetails() {
                                 <TableCell>{Book.bookGenre}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell>Link</TableCell>
-                                <TableCell>{Book.link}</TableCell>
+                                <TableCell>Synopsis</TableCell>
+                                <TableCell>{Book.synopsis}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell><Button size="small">Add to favourite</Button></TableCell>
+                                <TableCell>  <Button href={Book.link} target='_blank' size="small">Buy</Button></TableCell>
                             </TableRow>                         
                         </TableBody>
                     </Table>
