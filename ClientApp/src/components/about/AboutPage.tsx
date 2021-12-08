@@ -1,8 +1,10 @@
 import React from 'react';
+import { Typography } from "@mui/material";
+
 export default function AboutPage(){
     return(
-        <>
-            <h1>About</h1>
-        </>
+        <Typography variant='h2'>
+            About Page
+        </Typography>
     )
 }

@@ -40,6 +40,7 @@ namespace YJKBooks
             {
                 configuration.RootPath = "ClientApp/build";
             });
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +69,8 @@ namespace YJKBooks
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

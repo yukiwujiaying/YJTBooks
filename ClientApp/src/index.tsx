@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './app/layout/App';
 import registerServiceWorker from './registerServiceWorker';
+import './app/layout/custom.css';
 
 
 const rootElement = document.getElementById('root');
