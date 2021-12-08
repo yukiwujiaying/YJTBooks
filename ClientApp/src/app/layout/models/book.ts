@@ -6,5 +6,5 @@ export interface Book {
     synopsis: string;
     price: number;
     pictureUrl: string;
-    bookGenre: number;
+    bookGenre: string;
 }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using YJKBooks.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 namespace YJKBooks
 {
@@ -23,7 +24,7 @@ namespace YJKBooks
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             var connectionStringApplication = Configuration["connectionStrings:ApplicationDBConnectionString"];
             services.AddSwaggerGen(c =>
             {
@@ -41,6 +42,12 @@ namespace YJKBooks
                 configuration.RootPath = "ClientApp/build";
             });
             services.AddCors();
+            // using System.Text.Json.Serialization
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,7 +77,7 @@ namespace YJKBooks
 
             app.UseRouting();
 
-            
+
 
             app.UseEndpoints(endpoints =>
             {
