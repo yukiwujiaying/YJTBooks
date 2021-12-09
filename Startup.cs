@@ -18,6 +18,7 @@ namespace YJKBooks
             Configuration = configuration;
         }
 
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -39,13 +40,16 @@ namespace YJKBooks
                 o.UseSqlServer(Configuration.GetConnectionString("BookInfoDBConnectionString"));
 
             });
-      
-      
+
+            services.AddCors();
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +74,12 @@ namespace YJKBooks
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            //Cors needs to be located exactly after UseRouting; it allows for the connection between port3002 and 5000 
+            app.UseCors(ops =>
+            {
+                ops.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3002");
+            });
+
 
             app.UseEndpoints(endpoints =>
             {

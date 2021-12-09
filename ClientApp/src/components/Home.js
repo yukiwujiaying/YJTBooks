@@ -20,7 +20,7 @@ export function Home() {
 
     return (
         <div className='home'>
-
+            <h1>Teddyyy!!</h1>
             <ul>
                 {books.map((item, index) => (
                     <li key={index}>{item.bookId} - {item.title} - {item.author} - {item.price} - {item.amazonLink} - {item.synopsis} - {item.pictureUrl}</li>
