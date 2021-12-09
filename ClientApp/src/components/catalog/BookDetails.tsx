@@ -24,7 +24,7 @@ export default function BookDetails() {
     return(
         <Grid container spacing={6}>
             <Grid item xs={6}>
-                <img src={Book.pictureUrl} alt={Book.title} style={{width:'100%'}}/>
+                <img src={Book.pictureUrl} alt={Book.title} style={{width:'80%'}}/>
             </Grid>
             <Grid item xs={6}>
                 <Typography variant='h3'>{Book.title}</Typography>
@@ -57,6 +57,7 @@ export default function BookDetails() {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <Button variant="contained" component={Link} to={`/catalog/`}>Return</Button>
             </Grid>
         </Grid>
     )

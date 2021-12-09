@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
 import { Book } from "../../app/layout/models/book";
+import { Link } from 'react-router-dom';
+
 
 
 interface Props {
@@ -15,12 +16,12 @@ export default function BookCard({ book }: Props) {
                 component="img"
                 //height="140"
                 image={book.pictureUrl}
-                sx={{ objectFit: 'contain', bgcolor: 'primary.light',width: 151 }}
+                sx={{ objectFit: 'cover', bgcolor: 'primary.light',width: 180 }}
                 title={book.title}
             />
             <CardContent>
                 <Typography gutterBottom color='secondary' variant="h5">
-                    {book.title}                  
+                    <a href={`/catalog/${book.id}`}  className="linkOfAmazon">{book.title} </a>
                 </Typography>
                 <Typography variant="h6">
                     £{(book.price).toFixed(2)}
