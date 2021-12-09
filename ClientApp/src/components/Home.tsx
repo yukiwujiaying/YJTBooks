@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import  Book  from '../app/models/book';
+import  Catalog  from "./catalog/Catalog";
 
 export function Home() {
     // const { id } = useParams()
-    const [books, setBooks] = useState([]);
+    const [books, setBooks] = useState<Book[]>([]);
     // const url = `http://localhost:5000/api/books/${id}`
 
     useEffect(() => {
@@ -20,13 +22,8 @@ export function Home() {
 
     return (
         <div className='home'>
-            <h1>Really?    </h1>
-            <ul>
-                {books.map((item, index) => (
-                    <li key={index}>{item.bookId} - {item.title} - {item.author} - {item.price} - {item.amazonLink} - {item.synopsis} - {item.pictureUrl}</li>
-                ))}
-            </ul>
-
+            <h1>TS IS WORKING, FINALLY!!!</h1>
+            <Catalog books={books} />
         </div>
     );
 }
