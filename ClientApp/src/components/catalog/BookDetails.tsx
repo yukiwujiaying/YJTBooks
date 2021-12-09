@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Book } from "../../app/layout/models/book";
 import { Link } from 'react-router-dom';
+import LoadingComponent from '../../app/layout/LoadingComponent';
 
 export default function BookDetails() {
     let { Id } = useParams();
@@ -18,7 +19,7 @@ export default function BookDetails() {
              .finally(()=>setloading(false));
     },[Id])
 
-    if (loading) return <h3>Loading...</h3>
+    if (loading) return <LoadingComponent message="Loading products..." />
 
     if(!Book) return <h3>Book not found</h3>
     return(
