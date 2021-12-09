@@ -5,14 +5,16 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './app/layout/App';
 import registerServiceWorker from './registerServiceWorker';
 import './app/layout/custom.css';
+import { HistoryRouter } from "./HistoryRouter"
+import { myHistory } from './history';
 
 
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
-  <BrowserRouter >
+  <HistoryRouter history={myHistory}>
     <App />
-  </BrowserRouter>,
+    </HistoryRouter>,
   rootElement);
 
 registerServiceWorker();
