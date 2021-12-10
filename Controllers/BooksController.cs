@@ -11,7 +11,7 @@ namespace YJKBooks.Controllers
 {  
     [ApiController]
     [Route("api/[controller]")]
-    public class BooksController : ControllerBase
+    public class BooksController : BaseApiController
     {
         private readonly ApplicationDbContext _context;
 
@@ -29,7 +29,9 @@ namespace YJKBooks.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
-            return await _context.Books.FindAsync(id);
+            var book = await _context.Books.FindAsync(id);
+            if (book==null) return NotFound();
+            return book;
         }
     }
     }
