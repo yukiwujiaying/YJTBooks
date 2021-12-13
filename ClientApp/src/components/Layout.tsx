@@ -1,18 +1,11 @@
-import React, { Component } from 'react';
-import { Container } from 'reactstrap';
-import { NavMenu } from './NavMenu';
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-export class Layout extends Component {
-  static displayName = Layout.name;
-
-  render () {
-    return (
-      <div>
-        <NavMenu />
-        <Container>
-          {this.props.children}
-        </Container>
-      </div>
-    );
-  }
+namespace YJKBooks.ClientApp.src.components
+{
+    public class Layout
+    {
+    }
 }

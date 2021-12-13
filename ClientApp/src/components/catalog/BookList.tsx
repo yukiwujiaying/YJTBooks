@@ -1,4 +1,4 @@
-﻿import { List } from '@material-ui/core';
+﻿import { Grid } from '@material-ui/core';
 import Book from '../../app/models/book';
 import React, { Component } from 'react';
 import BookCard from "./BookCard";
@@ -10,10 +10,12 @@ interface Props {
 export default function BookList({ books } : Props) {
 
     return (
-        <List>
+        <Grid container spacing={ 4 }>
             {books.map(book => (
-                <BookCard key={book.bookId} books = {book} />
+                <Grid item xs={3} key={book.bookId}>
+                    <BookCard books={book} />
+                </Grid>
             ))}
-        </List>
+        </Grid>
     )
 }

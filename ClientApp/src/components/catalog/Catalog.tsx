@@ -1,7 +1,9 @@
 ﻿import Book from '../../app/models/book';
 import React, { useEffect, useState } from 'react';
 import BookList from "./BookList";
-import { Typography } from '@mui/material';
+import Header from '../../app/layout/Header';
+import { CssBaseline } from '@material-ui/core';
+import { Container } from '@mui/material';
 
 export default function Catalog() {
     // const { id } = useParams()
@@ -21,8 +23,11 @@ export default function Catalog() {
 
     return (
         <>
-            <Typography variant='h3'>List of Books</Typography>
-            <BookList books={books} />
+            <CssBaseline />
+            <Header />
+            <Container>
+                   <BookList books={books} />
+            </Container>
         </>
-            )
+    );
 }
