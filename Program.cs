@@ -23,7 +23,7 @@ namespace YJKBooks
             try
             {
                 context.Database.Migrate();
-                //DBInitializer.Initialize(context);
+               
             }
             catch(Exception e)
             {

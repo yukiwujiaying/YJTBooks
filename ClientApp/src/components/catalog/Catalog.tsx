@@ -1,21 +1,28 @@
 ﻿import Book from '../../app/models/book';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
+import BookList from "./BookList";
+import { Typography } from '@mui/material';
+
+export default function Catalog() {
+    // const { id } = useParams()
+    const [books, setBooks] = useState<Book[]>([]);
+    // const url = `http://localhost:5000/api/books/${id}`
+
+    useEffect(() => {
+
+        //this function fetches our books from the API
+        fetch('http://localhost:5000/api/books')
+            //the fetch returns a promise(response) which we turn into  a json object 
+            .then(response => response.json())
+            .then(data => setBooks(data))
+        //we use the empty array dependency [] which makes sure that we only call useEffect() once. 
+    }, [])
 
 
-
-//we use this to specify which attributes are required to be passed from Home to Catalog
-interface Props {
-    books: Book[];
-}
-
-export default function Catalog({books}: Props) {
     return (
         <>
-              <ul>
-                    {books.map((item, index) => (
-                          <li key={index}>{item.bookId} - {item.title} - {item.author} - {item.price} - {item.amazonLink} - {item.synopsis} - {item.pictureUrl}</li>
-                     ))}
-              </ul>
+            <Typography variant='h3'>List of Books</Typography>
+            <BookList books={books} />
         </>
             )
 }
