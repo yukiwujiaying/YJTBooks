@@ -9,8 +9,8 @@ using YJKBooks.Entities;
 
 namespace YJKBooks.Controllers
 {  
-    [ApiController]
-    [Route("api/[controller]")]
+    // [ApiController]
+    // [Route("api/[controller]")]
     public class BooksController : BaseApiController
     {
         private readonly ApplicationDbContext _context;
