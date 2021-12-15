@@ -33,21 +33,25 @@
     <None Remove="ClientApp\src\app\layout\file.ts" />
     <None Remove="ClientApp\src\app\layout\Header.tsx" />
     <None Remove="ClientApp\src\book.ts" />
+    <None Remove="ClientApp\src\components\about\AboutPage.tsx" />
     <None Remove="ClientApp\src\components\catalog\BookCard.tsx" />
+    <None Remove="ClientApp\src\components\catalog\BookDetails.tsx" />
     <None Remove="ClientApp\src\components\catalog\BookList.tsx" />
     <None Remove="ClientApp\src\components\catalog\Catalog.tsx" />
+    <None Remove="ClientApp\src\components\contact\Contact.tsx" />
+    <None Remove="ClientApp\src\components\home\HomePage.tsx" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\layout\Header.tsx" />
     <TypeScriptCompile Include="ClientApp\src\app\models\book.ts" />
+    <TypeScriptCompile Include="ClientApp\src\components\about\AboutPage.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\catalog\BookCard.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\catalog\Catalog.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\catalog\BookList.tsx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\features\" />
+    <TypeScriptCompile Include="ClientApp\src\components\catalog\BookDetails.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\contact\Contact.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\home\HomePage.tsx" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

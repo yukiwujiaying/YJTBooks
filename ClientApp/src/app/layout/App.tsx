@@ -1,20 +1,36 @@
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router';
-import { FetchData } from '../../components/FetchData';
-import { Counter } from '../../components/Counter';
 import './styles.css'
 import  Catalog  from "../../components/catalog/Catalog";
+import HomePage from '../../components/home/HomePage';
+import BookDetails from '../../components/catalog/BookDetails';
+import AboutPage from '../../components/about/AboutPage';
+import Contact from '../../components/contact/Contact';
+import { ThemeProvider } from '@emotion/react';
+import { createTheme, CssBaseline } from '@material-ui/core';
+import Header from './Header';
 
-export default class App extends Component {
-  static displayName = App.name;
+export default function App() {
+    const theme = createTheme({
+        palette: {
+            background: {
+                default:  'light' ? '#eaeaea' : '#121212'
+            }
+        }
+    })
 
-  render () {
-    return (
+      return (
+          <ThemeProvider theme={theme}>
+              <CssBaseline />
+                 <Header />
             <Routes>
-                <Route path='/' element={<Catalog />} />
-                <Route path='/counter' element={<Counter />} />
-                <Route path='/fetch-data' element={<FetchData />} />
-            </Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/catalog' element={<Catalog />} />
+            <Route path='/catalog/:id' element={<BookDetails />} />
+            <Route path='/about' element={<AboutPage />} />
+            <Route path='/contact' element={<Contact />} />
+              </Routes>
+          </ThemeProvider>
     );
   }
-}
+
