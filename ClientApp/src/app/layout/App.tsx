@@ -9,6 +9,8 @@ import Header from "./Header";
 import createTheme from '@mui/material/styles/createTheme';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { useState } from "react";
+import ServerError from '../errors/ServerError';
+import NotFound from '../errors/NotFound';
 
 function App() {
   const [darkMode, setDarkmode] = useState(false);
@@ -36,6 +38,8 @@ function App() {
         <Route path='/catalog' element={<Catalog/>}/>
         <Route path='/catalog/:Id' element={<ProductDetails/>}/>
         <Route path='/about' element={<AboutPage/>}/>
+        <Route path='/server-error' element={<ServerError/>}/>
+        <Route  element={<NotFound/>}/>
        
        </Routes>
      </Container>

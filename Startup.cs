@@ -42,7 +42,7 @@ namespace YJKBooks
             {
                 configuration.RootPath = "ClientApp/build";
             });
-            services.AddCors();
+           
             // using System.Text.Json.Serialization
             services.AddControllers()
                 .AddJsonOptions(options =>

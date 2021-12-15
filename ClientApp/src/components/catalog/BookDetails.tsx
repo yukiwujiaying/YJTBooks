@@ -6,6 +6,8 @@ import { useParams } from "react-router";
 import { Book } from "../../app/layout/models/book";
 import { Link } from 'react-router-dom';
 import LoadingComponent from '../../app/layout/LoadingComponent';
+import agent from '../../app/api/agent';
+import NotFound from '../../app/errors/NotFound';
 
 export default function BookDetails() {
     let { Id } = useParams();
@@ -13,15 +15,15 @@ export default function BookDetails() {
     const [loading, setloading]= useState(true);
 
     useEffect(()=>{
-        axios.get(`https://localhost:44316/api/Books/${Id}`)
-             .then(response => setBook(response.data))
+        agent.Catalog.details(parseInt(Id!))
+             .then(response => setBook(response))
              .catch(error=> console.log(error))
              .finally(()=>setloading(false));
     },[Id])
 
     if (loading) return <LoadingComponent message="Loading products..." />
-
-    if(!Book) return <h3>Book not found</h3>
+    
+    if(!Book) return <NotFound />
     return(
         <Grid container spacing={6}>
             <Grid item xs={6}>
