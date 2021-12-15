@@ -3,6 +3,7 @@ import { Button, Divider, Grid, Table, TableBody, TableCell, TableContainer, Tab
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Book from '../../app/models/book';
+import agent from '../../app/api/agent';
 
 
 export default function BookDetails() {
@@ -11,8 +12,8 @@ export default function BookDetails() {
        
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/Books/${id}`)
-            .then(response => setBook(response.data))
+       agent.Catalog.details(parseInt(id))
+            .then(response => setBook(response))
             .catch(error => console.log(error))
     }, [id])
 
