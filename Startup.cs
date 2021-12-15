@@ -41,7 +41,7 @@ namespace YJKBooks
 
             });
 
-            services.AddCors();
+            //services.AddCors();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -75,10 +75,10 @@ namespace YJKBooks
 
             app.UseRouting();
             //Cors needs to be located exactly after UseRouting; it allows for the connection between port3002 and 5000 
-            app.UseCors(ops =>
-            {
-                ops.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3002");
-            });
+            //app.UseCors(ops =>
+           // {
+           //     ops.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3002");
+           // });
 
 
             app.UseEndpoints(endpoints =>

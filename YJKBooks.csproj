@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\layout\file.ts" />
-    <None Remove="ClientApp\src\app\layout\Header.ts" />
+    <None Remove="ClientApp\src\app\layout\Header.tsx" />
     <None Remove="ClientApp\src\book.ts" />
     <None Remove="ClientApp\src\components\catalog\BookCard.tsx" />
     <None Remove="ClientApp\src\components\catalog\BookList.tsx" />
@@ -39,8 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\layout\file.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\layout\Header.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\layout\Header.tsx" />
     <TypeScriptCompile Include="ClientApp\src\app\models\book.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\catalog\BookCard.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\catalog\Catalog.tsx" />
