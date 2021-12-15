@@ -1,6 +1,6 @@
 ﻿import { Grid } from '@material-ui/core';
 import Book from '../../app/models/book';
-import React, { Component } from 'react';
+import React from 'react';
 import BookCard from "./BookCard";
 
 interface Props {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router';
 import './styles.css'
 import  Catalog  from "../../components/catalog/Catalog";
@@ -14,7 +14,7 @@ export default function App() {
     const theme = createTheme({
         palette: {
             background: {
-                default:  'light' ? '#eaeaea' : '#121212'
+                default: 'light' ? '#eaeaea' : '#121212'
             }
         }
     })

@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+﻿import React from 'react';
 import { AppBar, Badge, Box, IconButton, List, ListItem, Typography } from "@material-ui/core"
 import { Toolbar } from "@mui/material"
 import { NavLink } from 'react-router-dom';
