@@ -13,6 +13,7 @@ namespace YJKBooks.Contexts
         public DbSet<Book> Books { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
+        public DbSet<FavouriteBookList> FavouriteBookList { get; set; }
 
         //this is the constructor that allow the config to use the onnection string
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
