@@ -19,7 +19,7 @@ export default function BookDetails() {
     const [Book, setBook] = useState<Book | null>(null);
     const [loading, setloading] = useState(true);
     const [quantity, setQuantity] = useState(0);
-    const [sumitting, setSubmitting] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
     const [toggle, setToggle] = useState(true);
     const item = favouriteBookList?.items.find(i => i.bookId === Book?.id);
 
@@ -67,7 +67,7 @@ export default function BookDetails() {
             <Grid item xs={6}>
                 <Typography variant='h3'>
                     {Book.title}
-                    <LoadingButton loading={loading}
+                    <LoadingButton loading={submitting}
                                     onClick={() => handleClick(Book.id)}
                                     size="small">
                         {toggle ? <StarBorder fontSize="large" /> : <StarIcon fontSize="large"/>}
