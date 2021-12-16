@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using YJKBooks.Contexts;
 using Microsoft.OpenApi.Models;
+using YJKBooks.Entities;
 
 namespace YJKBooks
 {
@@ -25,9 +26,18 @@ namespace YJKBooks
         public void ConfigureServices(IServiceCollection services)
         { 
 
-
-
             services.AddControllersWithViews();
+
+            //Adding AccessRouter to configurations
+           // services.AddAccessRouterCookieAuthentication().AddAccessRouterOAuth(Configuration);
+          //  services.AddAuthorization(options =>
+          //  {
+          //      options.FallbackPolicy = options.DefaultPolicy;
+           // });
+            
+
+
+
              //Adding the Swagger UI 
             services.AddSwaggerGen(c =>
             {
@@ -40,6 +50,11 @@ namespace YJKBooks
                 o.UseSqlServer(Configuration.GetConnectionString("BookInfoDBConnectionString"));
 
             });
+            //Adding the Identity service 
+            services.AddIdentityCore<User>()
+                .AddEntityFrameworkStores<BookStoreContext>();
+            services.AddAuthentication();
+            services.AddAuthorization();
 
             //services.AddCors();
 

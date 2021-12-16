@@ -1,24 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using YJKBooks.Entities;
+﻿using YJKBooks.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace YJKBooks.Contexts
 {
-    public class BookStoreContext : DbContext
+    public class BookStoreContext : IdentityDbContext<User>
     {
         public BookStoreContext(DbContextOptions<BookStoreContext> options) : base(options)
         {
         }
         public DbSet<Book> Books { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+
+
 
             modelBuilder.Entity<Book>()
                  .HasData(
@@ -173,7 +173,7 @@ namespace YJKBooks.Contexts
                     PictureUrl = "/images/books/Rita_Hayworth_and_Shawshank_Redemption.jpg",
                     BookGenre = Book.Genre.Fiction,
 
-                 },
+                },
 
                  new Book
                  {
@@ -264,6 +264,7 @@ namespace YJKBooks.Contexts
 
 
             base.OnModelCreating(modelBuilder);
+
 
         }
     }
