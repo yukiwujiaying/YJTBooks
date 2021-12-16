@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Route, Routes } from 'react-router';
 import { Home } from '../../components/home/Home';
 import AboutPage from '../../components/about/AboutPage';
@@ -11,8 +11,28 @@ import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { useState } from "react";
 import ServerError from '../errors/ServerError';
 import NotFound from '../errors/NotFound';
+import FavouriteBookListPage from '../../components/FavouriteBookList/FavouriteBookListPage';
+import { useStoreContext } from '../context/StoreContext';
+import { getCookie } from './util/util';
+import agent from '../api/agent';
+import LoadingComponent from './LoadingComponent';
+
 
 function App() {
+  const {setFavouriteBookList} = useStoreContext();
+  const[loading, setloading]= useState(true);
+  useEffect(()=>{
+    const userId = getCookie('userId');
+    if (userId){
+      agent.FavouriteBookList.get()
+           .then(favouriteBookList => setFavouriteBookList(favouriteBookList))
+           .catch(error => console.log(error))
+           .finally(() => setloading(false))
+    } else {
+      setloading(false);
+    }
+  },[setFavouriteBookList])
+
   const [darkMode, setDarkmode] = useState(false);
   const paletteType = darkMode ? 'dark' : 'light';
   const darkTheme = createTheme({
@@ -27,7 +47,7 @@ function App() {
   function handleThemeChange(){
     setDarkmode(!darkMode);
   }
-
+  if (loading) return <LoadingComponent message='Initialising app...'/>
   return (
    <ThemeProvider theme={darkTheme}>
      <CssBaseline />
@@ -39,8 +59,8 @@ function App() {
         <Route path='/catalog/:Id' element={<ProductDetails/>}/>
         <Route path='/about' element={<AboutPage/>}/>
         <Route path='/server-error' element={<ServerError/>}/>
-        <Route  element={<NotFound/>}/>
-       
+        <Route path='/FavouriteBookList' element={<FavouriteBookListPage/>} />
+        <Route  element={<NotFound/>}/>     
        </Routes>
      </Container>
 

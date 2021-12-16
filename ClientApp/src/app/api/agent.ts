@@ -62,17 +62,18 @@ const TestErrors ={
     get500Error:()=>request.get('buggy/server-error'),
     getValidationError:()=>request.get('buggy/validation-error'),
 }
-const favouriteBookList = {
-    get:() => request.get('favouriteBookList'),
-    addItem:(bookId: number, quantity= 1)=> request.post(`favouriteBookList?bookId=${bookId}&quantity=${quantity}`,{}),
-    removeItem:(bookId: number, quantity= 1)=> request.delete(`favouriteBookList?bookId=${bookId}&quantity=${quantity}`)
+const FavouriteBookList = {
+    get:() => request.get('FavouriteBookList'),
+    addItem:(bookId: number, quantity= 1)=> request.post(`FavouriteBookList?bookId=${bookId}&quantity=${quantity}`,{}),
+    removeItem:(bookId: number, quantity= 1)=> request.delete(`FavouriteBookList?bookId=${bookId}&quantity=${quantity}`)
 
 }
+
 
 const agent = {
     Catalog,
     TestErrors,
-    favouriteBookList
+    FavouriteBookList
 }
 
 export default agent;

@@ -7,14 +7,17 @@ import registerServiceWorker from './registerServiceWorker';
 import './app/layout/custom.css';
 import { HistoryRouter } from "./HistoryRouter"
 import { myHistory } from './history';
+import { StoreProvider } from './app/context/StoreContext';
 
 
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
   <HistoryRouter history={myHistory}>
-    <App />
-    </HistoryRouter>,
+    <StoreProvider>
+      <App />
+    </StoreProvider>
+  </HistoryRouter>,
   rootElement);
 
 registerServiceWorker();
