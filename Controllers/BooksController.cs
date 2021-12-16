@@ -29,7 +29,11 @@ namespace YJKBooks.Controllers {
 
         public async Task<ActionResult<Book>> GetBook(int id)
         {
-            return await context.Books.FindAsync(id);
+            var book = await context.Books.FindAsync(id);
+            if (book == null) 
+                return NotFound();
+
+            return book;
         }
 
     }

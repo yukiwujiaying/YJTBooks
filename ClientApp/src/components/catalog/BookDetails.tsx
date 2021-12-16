@@ -1,24 +1,29 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Button, Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import Book from '../../app/models/book';
 import agent from '../../app/api/agent';
+import LoadingComponent from '../../app/layout/LoadingComponent';
+import NotFound from '../../app/api/errors/NotFound';
 
 
 export default function BookDetails() {
     const { id } = useParams();
     const [books, setBook] = useState<Book | null>(null);
+    const [loading, setLoading] = useState(true);
        
 
     useEffect(() => {
        agent.Catalog.details(parseInt(id))
-            .then(response => setBook(response))
+           .then(response => setBook(response))
+           //this is catching our error and print caught in the console
             .catch(error => console.log(error))
+           .finally(() => setLoading(false))
     }, [id])
 
-    
-    if (!books) return <h1>"Book not found..." </h1>
+
+    if (loading) return <LoadingComponent message='Loading book..' />
+    if (!books) return <NotFound />
 
     return (
         <Grid container spacing={6}>

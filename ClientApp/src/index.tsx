@@ -1,17 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import App from './app/layout/App';
 import registerServiceWorker from './registerServiceWorker';
+import { myHistory } from './history';
+import { HistoryRouter } from "./HistoryRouter";
 
 
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+    <HistoryRouter history={myHistory}>
+       <App />
+    </HistoryRouter>,
   rootElement);
 
 registerServiceWorker();

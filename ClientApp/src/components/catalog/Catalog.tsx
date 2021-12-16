@@ -2,18 +2,21 @@
 import React, { useEffect, useState } from 'react';
 import BookList from "./BookList";
 import { Container } from '@mui/material';
+import agent from '../../app/api/agent';
+import LoadingComponent from '../../app/layout/LoadingComponent';
 
 export default function Catalog() {
     const [books, setBooks] = useState<Book[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        //this function fetches our books from the API
-        fetch('http://localhost:5000/api/Books')
-            //the fetch returns a promise(response) which we format into a json object 
-            .then(response => response.json())
-            .then(data => setBooks(data))
-        //we use the empty array dependency [] which makes sure that we only call useEffect() once. 
+        agent.Catalog.list()
+            .then(books => setBooks(books))
+            .catch(error => console.log(error))
+            .finally(() => setLoading(false))
     }, [])
+
+    if(loading) return <LoadingComponent message ="Loading books.."/> 
 
 
     return (

@@ -9,6 +9,8 @@ import Contact from '../../components/contact/Contact';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme, CssBaseline } from '@material-ui/core';
 import Header from './Header';
+import ServerError from '../api/errors/ServerError';
+import NotFound from '../api/errors/NotFound';
 
 export default function App() {
     const theme = createTheme({
@@ -21,15 +23,17 @@ export default function App() {
 
       return (
           <ThemeProvider theme={theme}>
-              <CssBaseline />
-                 <Header />
-            <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/catalog' element={<Catalog />} />
-            <Route path='/catalog/:id' element={<BookDetails />} />
-            <Route path='/about' element={<AboutPage />} />
-            <Route path='/contact' element={<Contact />} />
-              </Routes>
+            <CssBaseline />
+              <Header />
+                <Routes>
+                    <Route path='/' element={<HomePage />} />
+                    <Route path='/catalog' element={<Catalog />} />
+                    <Route path='/catalog/:id' element={<BookDetails />} />
+                    <Route path='/about' element={<AboutPage />} />
+                    <Route path='/contact' element={<Contact />} />
+                    <Route path='/server-error' element={<ServerError />} />
+                    <Route element={<NotFound />} />
+                </Routes>
           </ThemeProvider>
     );
   }
