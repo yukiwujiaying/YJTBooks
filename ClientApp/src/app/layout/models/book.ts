@@ -7,4 +7,5 @@ export interface Book {
     price: number;
     pictureUrl: string;
     bookGenre: string;
+    isFavourite: boolean;
 }

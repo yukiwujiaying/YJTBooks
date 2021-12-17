@@ -8,18 +8,15 @@ import { LoadingButton } from '@mui/lab';
 import { StarBorder } from '@mui/icons-material';
 import StarIcon from '@mui/icons-material/Star';
 
-
-
-
-
 interface Props {
     book: Book;
 }
 
 export default function BookCard({ book }: Props) {
+
     const [loading, setloading] = useState(false);
     const { setFavouriteBookList,removeItem } = useStoreContext();
-    const [toggle, setToggle] = useState(true);
+    const [toggle, setToggle] = useState(book.isFavourite);
 
     function handleAddItem(bookId: number) {
         setloading(true);
@@ -37,14 +34,15 @@ export default function BookCard({ book }: Props) {
              .finally(()=>setloading(false))
       }
 
-      function handleClick(bookId: number){
-          setToggle( !toggle )
-          if(toggle){ 
+      function handleClick(bookId: number, isFavourite: boolean){
+          setToggle( isFavourite )
+          if(isFavourite){ 
               handleAddItem(bookId)
             }else{
                 handleRemoveItem(bookId);
             }
        }
+      
     return (
         <Card sx={{ display: 'flex' }}>
             <CardMedia
@@ -56,11 +54,11 @@ export default function BookCard({ book }: Props) {
             />
             <CardContent>
                 <Typography gutterBottom color='secondary' variant="h5">
-                    <a href={`/catalog/${book.id}`} className="linkOfAmazon">{book.title} </a>
+                    <Link to={`/catalog/${book.id}`} className="linkOfAmazon">{book.title}</Link>
                     <LoadingButton loading={loading}
-                    onClick={() => handleClick(book.id)}
+                    onClick={() => handleClick(book.id, !toggle)}
                     size="small">
-                    {toggle ? <StarBorder/> : <StarIcon/>}
+                    {toggle ?  <StarIcon/>: <StarBorder/>}
                 </LoadingButton>
                 </Typography>
                 <Typography variant="h6">
@@ -81,5 +79,5 @@ export default function BookCard({ book }: Props) {
                 <Button component={Link} to={`/catalog/${book.id}`} size="small">View</Button>
             </CardActions>
         </Card>
-    )
+    );
 }

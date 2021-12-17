@@ -14,24 +14,44 @@ import { StarBorder } from '@mui/icons-material';
 import StarIcon from '@mui/icons-material/Star';
 
 export default function BookDetails() {
+
     const { favouriteBookList, setFavouriteBookList, removeItem } = useStoreContext();
     let { Id } = useParams();
-    const [Book, setBook] = useState<Book | null>(null);
+    const [book, setBook] = useState<Book | null>(null);
     const [loading, setloading] = useState(true);
-    const [quantity, setQuantity] = useState(0);
     const [submitting, setSubmitting] = useState(false);
-    const [toggle, setToggle] = useState(true);
-    const item = favouriteBookList?.items.find(i => i.bookId === Book?.id);
+    const [isFavourite, setIsFavourite] = useState(false);
 
-    useEffect(() => {
-        if (item) setQuantity(item.quantity);
+    // useEffect(() => {   
+    //     console.log("favouriteBookList", favouriteBookList);
+    //     console.log("id", Id);        
+    // }, [])
+
+    useEffect(() => {   
+        console.log("Loaded");
+
         agent.Catalog.details(parseInt(Id!))
             .then(response => setBook(response))
             .catch(error => console.log(error))
             .finally(() => setloading(false));
-    }, [Id, item])
+    }, [])
 
-    function handleAddItem(bookId: number) {
+    useEffect(() => {   
+        if (book == null) return;
+        
+        console.log("book", book);
+        //console.log("Id", id);
+        
+        if(favouriteBookList?.items.some(i => i.bookId === book.id)){
+            setIsFavourite(true);
+        } else {
+            setIsFavourite(false);
+        }
+        
+    }, [book])
+
+
+    function addBookToFavourites(bookId: number) {
         setSubmitting(true);
         agent.FavouriteBookList.addItem(bookId)
             .then(favouriteBookList => setFavouriteBookList(favouriteBookList))
@@ -39,67 +59,70 @@ export default function BookDetails() {
             .finally(() => setSubmitting(false));
     }
 
-    function handleRemoveItem(bookId: number, quantity = 1) {
+    function removeBookFromFavourites(bookId: number) {
         setSubmitting(true);
-        agent.FavouriteBookList.removeItem(bookId, quantity)
-            .then(() => removeItem(bookId, quantity))
+        agent.FavouriteBookList.removeItem(bookId, 1)
+            .then(() => removeItem(bookId, 1))
             .catch(error => console.log(error))
             .finally(() => setSubmitting(false))
     }
 
-    function handleClick(bookId: number) {
-        setToggle(!toggle)
-        if (toggle) {
-            handleAddItem(bookId)
-        } else {
-            handleRemoveItem(bookId);
+    function handleFavouriteClick(bookId: number){
+        
+         setIsFavourite(!isFavourite);
+        
+        if (isFavourite) { 
+            removeBookFromFavourites(bookId);
+            return;            
         }
+        addBookToFavourites(bookId);
+        
     }
 
     if (loading) return <LoadingComponent message="Loading books..." />
 
-    if (!Book) return <NotFound />
+    if (!book) return <NotFound />
     return (
         <Grid container spacing={6}>
             <Grid item xs={6}>
-                <img src={Book.pictureUrl} alt={Book.title} style={{ width: '80%' }} />
+                <img src={book.pictureUrl} alt={book.title} style={{ width: '80%' }} />
             </Grid>
             <Grid item xs={6}>
                 <Typography variant='h3'>
-                    {Book.title}
+                    {book.title}
                     <LoadingButton loading={submitting}
-                                    onClick={() => handleClick(Book.id)}
+                                    onClick={() => handleFavouriteClick(book.id)}
                                     size="small">
-                        {toggle ? <StarBorder fontSize="large" /> : <StarIcon fontSize="large"/>}
+                        {isFavourite ? <StarIcon fontSize="large"/> : <StarBorder fontSize="large" />}
                     </LoadingButton>
                 </Typography>
                 
                 <Divider sx={{ mb: 2 }} />
-                <Typography variant='h4' color='secondary'>£{(Book.price).toFixed(2)}</Typography>
+                <Typography variant='h4' color='secondary'>£{(book.price).toFixed(2)}</Typography>
                 <TableContainer>
                     <Table>
                         <TableBody>
                             <TableRow>
                                 <TableCell>Title</TableCell>
-                                <TableCell>{Book.title}</TableCell>
+                                <TableCell>{book.title}</TableCell>
                                 
                             </TableRow>
 
                             <TableRow>
                                 <TableCell>Author</TableCell>
-                                <TableCell>{Book.author}</TableCell>
+                                <TableCell>{book.author}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Genre</TableCell>
-                                <TableCell>{Book.bookGenre}</TableCell>
+                                <TableCell>{book.bookGenre}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Synopsis</TableCell>
-                                <TableCell>{Book.synopsis}</TableCell>
+                                <TableCell>{book.synopsis}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell><Button size="small">Add to favourite</Button></TableCell>
-                                <TableCell>  <Button href={Book.link} target='_blank' size="small">Buy</Button></TableCell>
+                                <TableCell>  <Button href={book.link} target='_blank' size="small">Buy</Button></TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>

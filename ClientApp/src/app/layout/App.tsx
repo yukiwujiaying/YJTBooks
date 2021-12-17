@@ -4,7 +4,7 @@ import { Home } from '../../components/home/Home';
 import AboutPage from '../../components/about/AboutPage';
 import { Container, CssBaseline } from "@mui/material";
 import Catalog from "../../components/catalog/Catalog";
-import ProductDetails from "../../components/catalog/BookDetails";
+import BookDetails from "../../components/catalog/BookDetails";
 import Header from "./Header";
 import createTheme from '@mui/material/styles/createTheme';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
@@ -21,7 +21,11 @@ import LoadingComponent from './LoadingComponent';
 function App() {
   const {setFavouriteBookList} = useStoreContext();
   const[loading, setloading]= useState(true);
+  
   useEffect(()=>{
+    
+    console.log("setFavouriteBookList changed");
+
     const userId = getCookie('userId');
     if (userId){
       agent.FavouriteBookList.get()
@@ -56,7 +60,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/catalog' element={<Catalog/>}/>
-        <Route path='/catalog/:Id' element={<ProductDetails/>}/>
+        <Route path='/catalog/:Id' element={<BookDetails/>}/>
         <Route path='/about' element={<AboutPage/>}/>
         <Route path='/server-error' element={<ServerError/>}/>
         <Route path='/FavouriteBookList' element={<FavouriteBookListPage/>} />

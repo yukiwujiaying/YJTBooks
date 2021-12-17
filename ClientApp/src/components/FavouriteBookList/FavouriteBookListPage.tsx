@@ -34,7 +34,8 @@ export default function FavouriteBookListPage() {
                         <TableRow>
                             <TableCell>Book</TableCell>
                             <TableCell align="right">Price</TableCell>
-                            <TableCell align="center">Author</TableCell>
+                            <TableCell align="right">Author</TableCell>
+                            <TableCell align="right">Details</TableCell>
                             <TableCell align="right">Link</TableCell>
                             <TableCell align="right">Price</TableCell>
                             <TableCell align="right"></TableCell>
@@ -56,8 +57,11 @@ export default function FavouriteBookListPage() {
                                 <TableCell align="right">
                                     {item.author}
                                 </TableCell>
+                                <TableCell  align="right">
+                                    <Button component={Link} to={`/catalog/${item.bookId}`} size="small">View</Button>
+                                </TableCell>
                                 <TableCell align="right">
-                                    <Button href={item.link} target='_blank' size="small">Buy</Button>
+                                    <Button  href={item.link} target='_blank' size="small">Buy</Button>
                                 </TableCell>
                                 <TableCell align="right">$ {((item.price * item.quantity)).toFixed(2)}</TableCell>
                                 <TableCell align="right">

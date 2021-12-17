@@ -35,7 +35,8 @@ const navStyles={
 }
 export default function Header({darkMode, handleThemeChange}:Props){
     const {favouriteBookList} = useStoreContext();
-    const itemCount = favouriteBookList?.items.reduce((sum,item) => sum + item.quantity,0)
+    console.log(favouriteBookList);
+    const itemCount = favouriteBookList?.items.length;
     return(
         <AppBar position='static' sx={{mb:4}}>
             <Toolbar sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>

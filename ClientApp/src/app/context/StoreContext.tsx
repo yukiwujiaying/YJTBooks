@@ -32,20 +32,18 @@ export function StoreProvider({children}:PropsWithChildren<any>){
         const items =[...favouriteBookList.items];
 
         //e.g want to remove items with index 3 in array, findIndex() return 3
-        const itemIndex = items.findIndex(i=>i.bookId==bookId);
+        const itemIndex = items.findIndex(i=>i.bookId===bookId);
+        console.log(itemIndex);
 
         if (itemIndex >=0){
-            items[itemIndex].quantity-=quantity;
 
-            //if quantity=0, At position 3, remove 1 items(items with index 3) 
-            if(items[itemIndex].quantity===0) items.splice(itemIndex,1);
-
+            items.splice(itemIndex,1);
+            
             setFavouriteBookList(prevState =>{
-                //return basket inculde the item and replace it with new items array
-                //! is just for safty check from typescript
-                return{...prevState!,items}
-            })
+                
+            return{...prevState!,items}});
         }
+
     }
 
     return (
