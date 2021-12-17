@@ -1,7 +1,7 @@
 ﻿using YJKBooks.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace YJKBooks.Contexts
 {
@@ -265,6 +265,11 @@ namespace YJKBooks.Contexts
 
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<IdentityRole>()
+                .HasData(
+                new IdentityRole { Name = "Member", NormalizedName = "MEMBER" },
+                new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" }
+            );
 
         }
     }

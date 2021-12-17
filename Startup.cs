@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using YJKBooks.Contexts;
 using Microsoft.OpenApi.Models;
 using YJKBooks.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace YJKBooks
 {
@@ -29,11 +30,12 @@ namespace YJKBooks
             services.AddControllersWithViews();
 
             //Adding AccessRouter to configurations
-           // services.AddAccessRouterCookieAuthentication().AddAccessRouterOAuth(Configuration);
-          //  services.AddAuthorization(options =>
+           // services.AddAccessRouterCookieAuthentication();
+           // services.AddAccessRouterOAuth(Configuration);
+           // services.AddAuthorization(options =>
           //  {
-          //      options.FallbackPolicy = options.DefaultPolicy;
-           // });
+          //     options.FallbackPolicy = options.DefaultPolicy;
+          // });
             
 
 
@@ -51,7 +53,11 @@ namespace YJKBooks
 
             });
             //Adding the Identity service 
-            services.AddIdentityCore<User>()
+            services.AddIdentityCore<User>( opt =>
+            {
+                opt.User.RequireUniqueEmail = true; //Does not allow duplicate e-mail addresses in DB 
+            })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<BookStoreContext>();
             services.AddAuthentication();
             services.AddAuthorization();
@@ -91,10 +97,12 @@ namespace YJKBooks
             app.UseRouting();
             //Cors needs to be located exactly after UseRouting; it allows for the connection between port3002 and 5000 
             //app.UseCors(ops =>
-           // {
-           //     ops.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3002");
-           // });
+            // {
+            //     ops.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3002");
+            // });
 
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

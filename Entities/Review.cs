@@ -11,7 +11,7 @@ namespace YJKBooks.Entities
         public int BookId { get; set; }
         public Book Book { get; set; }
         [ForeignKey("User")]
-        public string UserId { get; set; }
+        public string Id { get; set; }
         public User User { get; set; }
        
 
