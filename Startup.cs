@@ -10,6 +10,10 @@ using YJKBooks.Contexts;
 using Microsoft.OpenApi.Models;
 using YJKBooks.Entities;
 using Microsoft.AspNetCore.Identity;
+using YJKBooks.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace YJKBooks
 {
@@ -38,8 +42,6 @@ namespace YJKBooks
           // });
             
 
-
-
              //Adding the Swagger UI 
             services.AddSwaggerGen(c =>
             {
@@ -52,6 +54,7 @@ namespace YJKBooks
                 o.UseSqlServer(Configuration.GetConnectionString("BookInfoDBConnectionString"));
 
             });
+
             //Adding the Identity service 
             services.AddIdentityCore<User>( opt =>
             {
@@ -59,8 +62,24 @@ namespace YJKBooks
             })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<BookStoreContext>();
-            services.AddAuthentication();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+              {
+                  opt.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateIssuer = false,
+                      ValidateAudience = false,
+                      ValidateLifetime = true,
+                      ValidateIssuerSigningKey = true,
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                      .GetBytes(Configuration["JWTSettings:TokenKey"]))
+                  };
+              });
+
             services.AddAuthorization();
+
+            //Adding settings of when this will be disposed
+            services.AddScoped<TokenService>();
 
             //services.AddCors();
 

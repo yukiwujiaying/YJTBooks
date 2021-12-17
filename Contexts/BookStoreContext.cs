@@ -259,9 +259,7 @@ namespace YJKBooks.Contexts
 
                 }
 
-
                 ); ;
-
 
             base.OnModelCreating(modelBuilder);
 
