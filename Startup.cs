@@ -14,6 +14,8 @@ using YJKBooks.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Collections.Generic;
+//using KPMG.AccessRouter.Client;
 
 namespace YJKBooks
 {
@@ -29,23 +31,47 @@ namespace YJKBooks
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        { 
+        {
+            // Adding AccessRouter to configurations
+          //  services.AddAccessRouterCookieAuthentication().AddAccessRouterOAuth(Configuration);
 
             services.AddControllersWithViews();
 
-            //Adding AccessRouter to configurations
-           // services.AddAccessRouterCookieAuthentication();
-           // services.AddAccessRouterOAuth(Configuration);
-           // services.AddAuthorization(options =>
+          //  services.AddAuthorization(options =>
           //  {
-          //     options.FallbackPolicy = options.DefaultPolicy;
-          // });
-            
+          //      options.FallbackPolicy = options.DefaultPolicy;
+          //  });
 
-             //Adding the Swagger UI 
+
+            //Adding the Swagger UI 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Jwt auth header",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
             });
 
             //Adding the ConnectionString to the DBContext
