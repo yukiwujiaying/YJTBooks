@@ -48,15 +48,15 @@ namespace YJKBooks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ad51bf1b-b5a2-4e79-8e63-44391c469b73",
-                            ConcurrencyStamp = "bbfc977f-ebea-4ddf-b7c1-f37def576a19",
+                            Id = "7b307a0f-4e00-4b4c-bb7f-8ed0c20a8236",
+                            ConcurrencyStamp = "bd09a7c1-98e9-488a-ac61-ca27bd7b7afc",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "9c7aa69e-e5f7-4862-b8cb-a8c8de6dda58",
-                            ConcurrencyStamp = "06e59d1f-a987-4eae-8e13-bb629fb62665",
+                            Id = "c2ce253b-76d3-4469-8e27-2f67365eb8cc",
+                            ConcurrencyStamp = "aeb7bf44-f0b7-4611-b2de-1a2c4753a6fc",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

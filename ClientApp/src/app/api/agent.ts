@@ -1,6 +1,6 @@
-﻿import { axios, AxiosError, AxiosResponse } from "axios";
+﻿import axios, { AxiosError, AxiosResponse } from "axios";
 import { myHistory } from "../../history";
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 
 
 
@@ -25,10 +25,10 @@ axios.interceptors.response.use(async response => {
                 }
                 throw modelStateErrors.flat();
             }
-            toast.error(data.title);
+          //  toast.error(data.title);
             break;
         case 401:
-            toast.error(data.title);
+           // toast.error(data.title);
             break;
         case 500:
             myHistory.push('/server-error', { state: { error: data } });
@@ -53,6 +53,12 @@ const Catalog = {
     details: (bookId: number) => requests.get(`books/${bookId}`)
 }
 
+const Account = {
+    login: (values: any) => requests.post('account/login', values),
+    register: (values: any) => requests.post('account/register', values),
+    currentUser: () => requests.get('account/currentUser')
+}
+
 const TestErrors = {
     get400Error: () => requests.get('buggy/bad-request'),
     get401Error: () => requests.get('buggy/unauthorized'),
@@ -62,8 +68,9 @@ const TestErrors = {
 }
 
 const agent = {
-    Catalog
+    Account,
+    Catalog,
     TestErrors
-}
+};
 
 export default agent; 

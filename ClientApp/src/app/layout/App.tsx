@@ -11,6 +11,8 @@ import { createTheme, CssBaseline } from '@material-ui/core';
 import Header from './Header';
 import ServerError from '../api/errors/ServerError';
 import NotFound from '../api/errors/NotFound';
+import Login from '../../components/Account/Login';
+import Register from '../../components/Account/Register';
 
 export default function App() {
     const theme = createTheme({
@@ -31,6 +33,8 @@ export default function App() {
                     <Route path='/catalog/:id' element={<BookDetails />} />
                     <Route path='/about' element={<AboutPage />} />
                     <Route path='/contact' element={<Contact />} />
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/register' element={<Register />} />
                     <Route path='/server-error' element={<ServerError />} />
                     <Route element={<NotFound />} />
                 </Routes>
