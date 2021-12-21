@@ -1,6 +1,5 @@
 ﻿import { Button, Menu, Fade, MenuItem } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
+import * as React from 'react';
 import { signOut } from "../../components/Account/accountSlice";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
 
