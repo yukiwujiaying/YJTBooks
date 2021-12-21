@@ -1,6 +1,6 @@
 ﻿import axios, { AxiosError, AxiosResponse } from "axios";
 import { myHistory } from "../../history";
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 
@@ -25,10 +25,10 @@ axios.interceptors.response.use(async response => {
                 }
                 throw modelStateErrors.flat();
             }
-          //  toast.error(data.title);
+            toast.error(data.title);
             break;
         case 401:
-           // toast.error(data.title);
+            toast.error(data.title);
             break;
         case 500:
             myHistory.push('/server-error', { state: { error: data } });

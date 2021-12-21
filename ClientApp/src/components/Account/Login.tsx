@@ -15,7 +15,7 @@ import agent from '../../app/api/agent';
 export default function Login() {
 
     const { register, handleSubmit, formState: { isSubmitting, errors, isValid } } = useForm({
-    mode: 'onTouched'
+    mode: 'all'
     })
 
     async function submitForm(data: FieldValues) {
