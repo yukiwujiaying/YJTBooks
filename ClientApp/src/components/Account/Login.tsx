@@ -10,20 +10,20 @@ import { Link } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Paper } from '@material-ui/core';
 import { LoadingButton } from '@mui/lab';
-import agent from '../../app/api/agent';
+import { myHistory } from '../../history';
+import { useAppDispatch } from '../../app/store/configureStore';
+import { signInUser } from './accountSlice';
 
 export default function Login() {
-
+    const history = myHistory;
+    const dispatch = useAppDispatch();
     const { register, handleSubmit, formState: { isSubmitting, errors, isValid } } = useForm({
     mode: 'all'
     })
 
     async function submitForm(data: FieldValues) {
-        try {
-            await agent.Account.login(data);
-        } catch (error) {
-            console.log(error);
-        }
+        await dispatch(signInUser(data));
+        history.push('catalog');
     }
 
     return (
