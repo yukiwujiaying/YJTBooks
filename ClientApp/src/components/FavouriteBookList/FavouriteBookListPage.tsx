@@ -33,7 +33,7 @@ export default function FavouriteBookListPage() {
                     <TableHead>
                         <TableRow>
                             <TableCell>Book</TableCell>
-                            <TableCell align="right">Price</TableCell>
+                            <TableCell align="right">Genre</TableCell>
                             <TableCell align="right">Author</TableCell>
                             <TableCell align="right">Details</TableCell>
                             <TableCell align="right">Link</TableCell>
@@ -53,7 +53,7 @@ export default function FavouriteBookListPage() {
                                         <span>{item.title}</span>
                                     </Box>
                                 </TableCell>
-                                <TableCell align="right">$ {(item.price).toFixed(2)}</TableCell>
+                                <TableCell align="right">{item.genre}</TableCell>
                                 <TableCell align="right">
                                     {item.author}
                                 </TableCell>

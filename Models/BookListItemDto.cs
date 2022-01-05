@@ -1,3 +1,5 @@
+using static YJKBooks.Entities.Book;
+
 namespace YJKBooks.Models
 {
     public class BookListItemDto
@@ -9,5 +11,7 @@ namespace YJKBooks.Models
         public double Price { get; set; }
         public string PictureUrl { get; set; }
         public int Quantity { get; set; }
+        public Genre Genre { get; set; }
+
     }
 }

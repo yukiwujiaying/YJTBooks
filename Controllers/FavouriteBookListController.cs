@@ -103,7 +103,8 @@ namespace YJKBooks.Controllers
                     PictureUrl = item.Book.PictureUrl,
                     Author = item.Book.Author,
                     Link = item.Book.Link,
-                    Quantity = item.Quantity
+                    Quantity = item.Quantity,
+                    Genre =  item.Book.BookGenre
                 }).ToList()
             };
         }

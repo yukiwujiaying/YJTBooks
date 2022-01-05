@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Book } from "../../app/layout/models/book";
@@ -22,12 +21,7 @@ export default function BookDetails() {
     const [submitting, setSubmitting] = useState(false);
     const [isFavourite, setIsFavourite] = useState(false);
 
-    // useEffect(() => {   
-    //     console.log("favouriteBookList", favouriteBookList);
-    //     console.log("id", Id);        
-    // }, [])
-
-    useEffect(() => {   
+    useEffect(() => {
         console.log("Loaded");
 
         agent.Catalog.details(parseInt(Id!))
@@ -36,18 +30,18 @@ export default function BookDetails() {
             .finally(() => setloading(false));
     }, [])
 
-    useEffect(() => {   
+    useEffect(() => {
         if (book == null) return;
-        
+
         console.log("book", book);
         //console.log("Id", id);
-        
-        if(favouriteBookList?.items.some(i => i.bookId === book.id)){
+
+        if (favouriteBookList?.items.some(i => i.bookId === book.id)) {
             setIsFavourite(true);
         } else {
             setIsFavourite(false);
         }
-        
+
     }, [book])
 
 
@@ -67,16 +61,16 @@ export default function BookDetails() {
             .finally(() => setSubmitting(false))
     }
 
-    function handleFavouriteClick(bookId: number){
-        
-         setIsFavourite(!isFavourite);
-        
-        if (isFavourite) { 
+    function handleFavouriteClick(bookId: number) {
+
+        setIsFavourite(!isFavourite);
+
+        if (isFavourite) {
             removeBookFromFavourites(bookId);
-            return;            
+            return;
         }
         addBookToFavourites(bookId);
-        
+
     }
 
     if (loading) return <LoadingComponent message="Loading books..." />
@@ -91,12 +85,12 @@ export default function BookDetails() {
                 <Typography variant='h3'>
                     {book.title}
                     <LoadingButton loading={submitting}
-                                    onClick={() => handleFavouriteClick(book.id)}
-                                    size="small">
-                        {isFavourite ? <StarIcon fontSize="large"/> : <StarBorder fontSize="large" />}
+                        onClick={() => handleFavouriteClick(book.id)}
+                        size="small">
+                        {isFavourite ? <StarIcon fontSize="large" /> : <StarBorder fontSize="large" />}
                     </LoadingButton>
                 </Typography>
-                
+
                 <Divider sx={{ mb: 2 }} />
                 <Typography variant='h4' color='secondary'>£{(book.price).toFixed(2)}</Typography>
                 <TableContainer>
@@ -105,7 +99,7 @@ export default function BookDetails() {
                             <TableRow>
                                 <TableCell>Title</TableCell>
                                 <TableCell>{book.title}</TableCell>
-                                
+
                             </TableRow>
 
                             <TableRow>
@@ -121,8 +115,14 @@ export default function BookDetails() {
                                 <TableCell>{book.synopsis}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell><Button size="small">Add to favourite</Button></TableCell>
-                                <TableCell>  <Button href={book.link} target='_blank' size="small">Buy</Button></TableCell>
+                                <TableCell>
+                                    <Button href={book.link} target='_blank' size="small">Buy</Button>
+                                </TableCell>
+                                <TableCell>
+                                    <Button onClick={() => handleFavouriteClick(book.id)} size="small">
+                                        {isFavourite ? <text>remove from favourite</text> : <text>Add to favourite</text>}
+                                    </Button>
+                                </TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>

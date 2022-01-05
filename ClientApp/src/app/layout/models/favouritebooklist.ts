@@ -6,6 +6,7 @@ export interface BookListItem {
     price: number;
     pictureUrl: string;
     quantity: number;
+    genre: string;
     isFavourite: boolean;
 }
 
