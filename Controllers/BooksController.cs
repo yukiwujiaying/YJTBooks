@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using YJKBooks.Contexts;
 using YJKBooks.Entities;
 using YJKBooks.Models;
+using YJKBooks.Extensions;
+using Microsoft.AspNetCore.Http;
+using YJKBooks.RequestHelper;
 
 namespace YJKBooks.Controllers
 {
@@ -20,31 +23,48 @@ namespace YJKBooks.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<BookDto>>> GetBooks()
+        public async Task<ActionResult<PageList<BookDto>>> GetBooks([FromQuery]BookPrams bookPrams)
         {
-            var books = await _context.Books.ToListAsync();
-            var userFavouriteBooks = await _context.FavouriteBookList.Include(i => i.Items)
-                                                                     .ThenInclude(b => b.Book)
-                                                                     .FirstOrDefaultAsync(x => x.UserId == Request.Cookies["userId"]);
+            try
+            {
+                var query = _context.Books
+                                 .Sort(bookPrams.OrderBy)
+                                 .Search(bookPrams.SearchTerm)
+                                 .Filter(bookPrams.Genre)
+                                 .AsQueryable();
+                
+                //var books= await PageList<Book>.ToPagedlist(query, bookPrams.PageNumber,bookPrams.PageSize);
+                
+                var userId = Request.Cookies["userId"];
 
-            var bookDto = (from book in books
-                           join favourite in userFavouriteBooks.Items
-                           on book.Id equals favourite.BookId
-                           into dto
-                           from subBook in dto.DefaultIfEmpty()
-                           select new BookDto
-                           {
-                               Id = book.Id,
-                               Title = book.Title,
-                               Author = book.Author,
-                               Link = book.Link,
-                               Synopsis = book.Synopsis,
-                               Price = book.Price,
-                               PictureUrl = book.PictureUrl,
-                               IsFavourite = subBook is null ? false : true,
-                               Genre = book.BookGenre
-                           }).ToList();
-            return bookDto;
+                var favouriteBookList = await _context.FavouriteBookList.Include(i => i.Items)
+                                                                        .FirstOrDefaultAsync(x => x.UserId == userId);
+                                                                   
+                var favouriteBookIds = favouriteBookList.Items.Select(x => x.BookId);                                               
+                
+                var bookDtosQuery = (from book in query
+                                       select new BookDto
+                                       {
+                                           Id = book.Id,
+                                           Title = book.Title,
+                                           Author = book.Author,
+                                           Link = book.Link,
+                                           Synopsis = book.Synopsis,
+                                           Price = book.Price,
+                                           PictureUrl = book.PictureUrl,
+                                           IsFavourite = favouriteBookIds.Contains(book.Id),
+                                           Genre = book.BookGenre
+                                 });
+                var bookDtos =    await PageList<BookDto>.ToPagedlist(bookDtosQuery, bookPrams.PageNumber,bookPrams.PageSize); 
+                Response.AddPaginationHeader(bookDtos.MetaData);
+
+                return bookDtos;
+            }
+            catch (Exception e)
+            {
+                // add logging here?
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }            
         }
 
         [HttpGet("{id}")]
@@ -56,20 +76,15 @@ namespace YJKBooks.Controllers
         }
 
 
-        private BookDto MapBookToDto(Book Book)
+        [HttpGet("filters")]
+        public async Task<IActionResult> GetFilters()
         {
-            return new BookDto
-            {
-                Id = Book.Id,
-                Title = Book.Title,
-                Author = Book.Author,
-                Link = Book.Link,
-                Synopsis = Book.Synopsis,
-                Price = Book.Price,
-                PictureUrl = Book.PictureUrl,
-                IsFavourite = false,
-                Genre = Book.BookGenre
-            };
+            //want unique genre (distinct) from the list of book
+            var genres = await _context.Books.Select(p=>p.BookGenre).Distinct().ToListAsync();
+            
+
+            return Ok(new {genres});
         }
+
     }
 }
