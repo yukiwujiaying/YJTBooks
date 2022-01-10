@@ -9,6 +9,6 @@ namespace YJKBooks.RequestHelper
     {
          public string OrderBy { get; set; }
         public string SearchTerm { get; set; }
-        public string Genre{get; set;}
+        public string Genres{get; set;}
     }
 }

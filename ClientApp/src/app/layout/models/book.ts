@@ -9,3 +9,11 @@ export interface Book {
     bookGenre: string;
     isFavourite: boolean;
 }
+
+export interface BookParams {
+    orderBy: string;
+    searchTerm?: string;
+    genres: string[];
+    pageNumber:number;
+    pageSize: number;
+}

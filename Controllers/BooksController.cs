@@ -30,7 +30,7 @@ namespace YJKBooks.Controllers
                 var query = _context.Books
                                  .Sort(bookPrams.OrderBy)
                                  .Search(bookPrams.SearchTerm)
-                                 .Filter(bookPrams.Genre)
+                                 .Filter(bookPrams.Genres)
                                  .AsQueryable();
                 
                 //var books= await PageList<Book>.ToPagedlist(query, bookPrams.PageNumber,bookPrams.PageSize);
@@ -60,7 +60,7 @@ namespace YJKBooks.Controllers
 
                 return bookDtos;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // add logging here?
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
@@ -82,7 +82,6 @@ namespace YJKBooks.Controllers
             //want unique genre (distinct) from the list of book
             var genres = await _context.Books.Select(p=>p.BookGenre).Distinct().ToListAsync();
             
-
             return Ok(new {genres});
         }
 

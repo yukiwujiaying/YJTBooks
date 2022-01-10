@@ -40,8 +40,9 @@ export function StoreProvider({children}:PropsWithChildren<any>){
             items.splice(itemIndex,1);
             
             setFavouriteBookList(prevState =>{
-                
-            return{...prevState!,items}});
+                //return favourite booklist inculde the item and replace it with new items array
+                //! is just for safty check from typescript
+                return{...prevState!,items}});
         }
 
     }

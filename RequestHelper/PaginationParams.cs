@@ -10,7 +10,7 @@ namespace YJKBooks.RequestHelper
         private const int MaxPageSize = 50;
         // 1 is the default page number always get 1 page
         public int PageNumber{get; set;}=1;
-        private int _pageSize = 5;
+        private int _pageSize = 3;
         public int PageSize
         {
             get => _pageSize;
