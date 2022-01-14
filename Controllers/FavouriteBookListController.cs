@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YJKBooks.Contexts;
 using YJKBooks.Entities;
+using YJKBooks.Extensions;
 using YJKBooks.Models;
 
 namespace YJKBooks.Controllers
@@ -23,32 +24,32 @@ namespace YJKBooks.Controllers
         [HttpGet(Name ="GetFavouriteBookList")]
         public async Task<ActionResult<FavouriteBookListDto>> GetFavouriteBookList()
         {
-            var favouriteBookList = await RetrieveFavouriteBookList();
+            var favouriteBookList = await RetrieveFavouriteBookList(GetUserId());
 
             if (favouriteBookList == null) return NotFound();
 
-            return MapFavouriteBookListToDto(favouriteBookList);
+            return favouriteBookList.MapFavouriteBookListToDto();
         }
 
         [HttpPost]// api/basket?bookId=3&quantity=2
         public async Task<ActionResult<FavouriteBookListDto>> AddItemToBasket(int bookId, int quantity)
         {
             //get FavouriteBookList
-            var favouriteBookList = await RetrieveFavouriteBookList();
+            var favouriteBookList = await RetrieveFavouriteBookList(GetUserId());
 
             //checked if FavouriteBookList is null or not. If null create FavouriteBookList
             if (favouriteBookList == null) favouriteBookList = CreateFavouriteBookList();
 
             //get book
             var book = await _context.Books.FindAsync(bookId);
-            if (book == null) return NotFound();
+            if (book == null) return  BadRequest(new ProblemDetails{Title = "Book Not Found"});
 
             //add Item
             favouriteBookList.AddItem(book, quantity);
 
             //save changes
             var result = await _context.SaveChangesAsync() > 0;
-            if (result) return CreatedAtRoute("GetFavouriteBookList",MapFavouriteBookListToDto(favouriteBookList) );
+            if (result) return CreatedAtRoute("GetFavouriteBookList",favouriteBookList.MapFavouriteBookListToDto() );
 
             return BadRequest(new ProblemDetails { Title = "Problem saving book to your FavouritecBook List" });
         }
@@ -59,7 +60,7 @@ namespace YJKBooks.Controllers
         public async Task<ActionResult> RemoveFavouriteBookListItem(int bookId, int quantity)
         {
             //get FavouriteBookList
-            var favouriteBookList = await RetrieveFavouriteBookList();
+            var favouriteBookList = await RetrieveFavouriteBookList(GetUserId());
             //checked if basket is null, if null return not found
             if (favouriteBookList == null) return NotFound();
             //remove item or reduce quantity
@@ -71,8 +72,14 @@ namespace YJKBooks.Controllers
             return BadRequest(new ProblemDetails { Title = "Problem removing item from the basket" });
         }
 
-        private async Task<FavouriteBookList> RetrieveFavouriteBookList()
+        private async Task<FavouriteBookList> RetrieveFavouriteBookList(string userId)
         {
+            if (string.IsNullOrEmpty(userId))
+            {
+                Response.Cookies.Delete("userId");
+                return null;
+            }
+
             return await _context.FavouriteBookList
                 .Include(i => i.Items)
                 .ThenInclude(b => b.Book)
@@ -81,33 +88,25 @@ namespace YJKBooks.Controllers
 
         private FavouriteBookList CreateFavouriteBookList()
         {
-            var userId = Guid.NewGuid().ToString();
-            var cookieOptions = new CookieOptions { IsEssential = true, Expires = DateTime.Now.AddDays(30) };
-            Response.Cookies.Append("userId", userId, cookieOptions);
+            var userId = User.Identity?.Name;
+            if(string.IsNullOrEmpty(userId))
+            {
+                userId = Guid.NewGuid().ToString();
+                var cookieOptions = new CookieOptions { IsEssential = true, Expires = DateTime.Now.AddDays(30) };
+                Response.Cookies.Append("userId", userId, cookieOptions);
+            }
+            
             var favouriteBookList = new FavouriteBookList { UserId = userId };
             _context.FavouriteBookList.Add(favouriteBookList);
             return favouriteBookList;
         }
-
-        private FavouriteBookListDto MapFavouriteBookListToDto(FavouriteBookList FavouriteBookList)
+        private string GetUserId()
         {
-            return new FavouriteBookListDto
-            {
-                Id = FavouriteBookList.Id,
-                UserId = FavouriteBookList.UserId,
-                Items = FavouriteBookList.Items.Select(item => new BookListItemDto
-                {
-                    BookId = item.BookId,
-                    Title = item.Book.Title,
-                    Price = item.Book.Price,
-                    PictureUrl = item.Book.PictureUrl,
-                    Author = item.Book.Author,
-                    Link = item.Book.Link,
-                    Quantity = item.Quantity,
-                    Genre =  item.Book.BookGenre
-                }).ToList()
-            };
+            //?? means if the leftside is null will execute the right side
+            return User.Identity?.Name ?? Request.Cookies["userId"];
         }
+
+        
 
     }
 }

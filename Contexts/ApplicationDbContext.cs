@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +10,10 @@ using static YJKBooks.Entities.Book;
 
 namespace YJKBooks.Contexts
 {
-    public class ApplicationDbContext :DbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public DbSet<Book> Books { get; set; }
-        public DbSet<Users> Users { get; set; }
+        //public DbSet<Users> UsersTemp { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
         public DbSet<FavouriteBookList> FavouriteBookList { get; set; }
 
@@ -22,6 +24,14 @@ namespace YJKBooks.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<IdentityRole>()
+                    .HasData(
+                        new IdentityRole { Name = "Member", NormalizedName = "MEMBER" },
+                        new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" }
+                    );
+
             modelBuilder.Entity<Book>()
                  .HasData(
                 new Book()
@@ -263,7 +273,7 @@ namespace YJKBooks.Contexts
 
 
                 ); ;
-            base.OnModelCreating(modelBuilder);
+           
 
         }
     }

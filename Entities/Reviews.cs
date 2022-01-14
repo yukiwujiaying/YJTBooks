@@ -24,10 +24,5 @@ namespace YJKBooks.Entities
         public Book Book { get; set; }
         public int BookId { get; set; }
 
-        [ForeignKey("UserId")]
-        public Users User{ get; set; }
-        public int UserId { get; set; }
-
-
     }
 }

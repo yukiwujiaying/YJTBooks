@@ -39,26 +39,64 @@ namespace YJKBooks.Controllers
 
                 var favouriteBookList = await _context.FavouriteBookList.Include(i => i.Items)
                                                                         .FirstOrDefaultAsync(x => x.UserId == userId);
-                                                                   
-                var favouriteBookIds = favouriteBookList.Items.Select(x => x.BookId);                                               
-                
-                var bookDtosQuery = (from book in query
-                                       select new BookDto
-                                       {
-                                           Id = book.Id,
-                                           Title = book.Title,
-                                           Author = book.Author,
-                                           Link = book.Link,
-                                           Synopsis = book.Synopsis,
-                                           Price = book.Price,
-                                           PictureUrl = book.PictureUrl,
-                                           IsFavourite = favouriteBookIds.Contains(book.Id),
-                                           Genre = book.BookGenre
-                                 });
-                var bookDtos =    await PageList<BookDto>.ToPagedlist(bookDtosQuery, bookPrams.PageNumber,bookPrams.PageSize); 
-                Response.AddPaginationHeader(bookDtos.MetaData);
+                var favouriteBookIds = favouriteBookList?.Items.Select(x => x.BookId);
+                if (favouriteBookIds != null) {
+                    
+                    var bookDtosQuery = (from book in query
+                                         select new BookDto
+                                         {
+                                             Id = book.Id,
+                                             Title = book.Title,
+                                             Author = book.Author,
+                                             Link = book.Link,
+                                             Synopsis = book.Synopsis,
+                                             Price = book.Price,
+                                             PictureUrl = book.PictureUrl,
+                                             IsFavourite = favouriteBookIds.Contains(book.Id),
+                                             Genre = book.BookGenre
+                                         });
+                    var bookDtos = await PageList<BookDto>.ToPagedlist(bookDtosQuery, bookPrams.PageNumber, bookPrams.PageSize);
+                    Response.AddPaginationHeader(bookDtos.MetaData);
+                    return bookDtos;
+                }
+                else
+                {
+                    var bookDtosQuery = (from book in query
+                                         select new BookDto
+                                         {
+                                             Id = book.Id,
+                                             Title = book.Title,
+                                             Author = book.Author,
+                                             Link = book.Link,
+                                             Synopsis = book.Synopsis,
+                                             Price = book.Price,
+                                             PictureUrl = book.PictureUrl,
+                                             IsFavourite = false,
+                                             Genre = book.BookGenre
+                                         });
+                    var bookDtos = await PageList<BookDto>.ToPagedlist(bookDtosQuery, bookPrams.PageNumber, bookPrams.PageSize);
+                    Response.AddPaginationHeader(bookDtos.MetaData);
+                    return bookDtos;
 
-                return bookDtos;
+                }                                               
+                
+                //var bookDtosQuery = (from book in query
+                //                       select new BookDto
+                //                       {
+                //                           Id = book.Id,
+                //                           Title = book.Title,
+                //                           Author = book.Author,
+                //                           Link = book.Link,
+                //                           Synopsis = book.Synopsis,
+                //                           Price = book.Price,
+                //                           PictureUrl = book.PictureUrl,
+                //                           IsFavourite = favouriteBookIds.Contains(book.Id),
+                //                           Genre = book.BookGenre
+                //                 });
+                //var bookDtos =    await PageList<BookDto>.ToPagedlist(bookDtosQuery, bookPrams.PageNumber,bookPrams.PageSize); 
+                //Response.AddPaginationHeader(bookDtos.MetaData);
+
+                //return bookDtos;
             }
             catch (Exception)
             {
