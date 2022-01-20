@@ -33,7 +33,6 @@ export function StoreProvider({children}:PropsWithChildren<any>){
 
         //e.g want to remove items with index 3 in array, findIndex() return 3
         const itemIndex = items.findIndex(i=>i.bookId===bookId);
-        console.log(itemIndex);
 
         if (itemIndex >=0){
 

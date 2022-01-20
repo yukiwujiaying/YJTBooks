@@ -1,40 +1,47 @@
 import React from 'react';
-import { Button, Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from "@mui/material";
+import { Button, Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Book } from "../../app/layout/models/book";
 import { Link } from 'react-router-dom';
 import LoadingComponent from '../../app/layout/LoadingComponent';
-import agent from '../../app/api/agent';
 import NotFound from '../../app/errors/NotFound';
-import { useStoreContext } from '../../app/context/StoreContext';
 import { LoadingButton } from '@mui/lab';
 import { StarBorder } from '@mui/icons-material';
 import StarIcon from '@mui/icons-material/Star';
+import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
+import { bookSelectors, fetchBookAsync } from './catalogSlice';
+import { addFavouriteBookListItemAsync, removeFavouriteBookListItemAsync } from '../FavouriteBookList/FavouriteBookListSlice';
 
 export default function BookDetails() {
-
-    const { favouriteBookList, setFavouriteBookList, removeItem } = useStoreContext();
+    //const { favouriteBookList, setFavouriteBookList, removeItem } = useStoreContext();
+    //const [book, setBook] = useState<Book | null>(null);
+    //const [submitting, setSubmitting] = useState(false);
+    //const [loading, setloading] = useState(true);
+    const {favouriteBookList,status} = useAppSelector(state=>state.favouriteBookList);
+    const{status:bookStatus}= useAppSelector(state=>state.catalog);
+    const dispatch = useAppDispatch();
     let { Id } = useParams();
-    const [book, setBook] = useState<Book | null>(null);
-    const [loading, setloading] = useState(true);
-    const [submitting, setSubmitting] = useState(false);
     const [isFavourite, setIsFavourite] = useState(false);
+    const book = useAppSelector(state=>bookSelectors.selectById(state,Id!));
+    const {user} = useAppSelector(state=>state.account);
+    
+    useEffect(()=>{
+        if(!book) dispatch(fetchBookAsync(parseInt(Id!)));
+    },[Id,dispatch, book])
 
-    useEffect(() => {
-        console.log("Loaded");
+    // useEffect(() => {
+    //     console.log("Loaded");
 
-        agent.Catalog.details(parseInt(Id!))
-            .then(response => setBook(response))
-            .catch(error => console.log(error))
-            .finally(() => setloading(false));
-    }, [])
+    //     agent.Catalog.details(parseInt(Id!))
+    //         .then(response => setBook(response))
+    //         .catch(error => console.log(error))
+    //         .finally(() => setloading(false));
+    // }, [])
 
     useEffect(() => {
         if (book == null) return;
 
         console.log("book", book);
-        //console.log("Id", id);
 
         if (favouriteBookList?.items.some(i => i.bookId === book.id)) {
             setIsFavourite(true);
@@ -44,38 +51,37 @@ export default function BookDetails() {
 
     }, [book])
 
-
-    function addBookToFavourites(bookId: number) {
-        setSubmitting(true);
-        agent.FavouriteBookList.addItem(bookId)
-            .then(favouriteBookList => setFavouriteBookList(favouriteBookList))
-            .catch(error => console.log(error))
-            .finally(() => setSubmitting(false));
-    }
-
-    function removeBookFromFavourites(bookId: number) {
-        setSubmitting(true);
-        agent.FavouriteBookList.removeItem(bookId, 1)
-            .then(() => removeItem(bookId, 1))
-            .catch(error => console.log(error))
-            .finally(() => setSubmitting(false))
-    }
-
     function handleFavouriteClick(bookId: number) {
 
         setIsFavourite(!isFavourite);
 
         if (isFavourite) {
-            removeBookFromFavourites(bookId);
+            dispatch(removeFavouriteBookListItemAsync({bookId: bookId, quantity:1}));
             return;
         }
-        addBookToFavourites(bookId);
+        dispatch(addFavouriteBookListItemAsync({bookId: bookId}));
 
     }
+    if (bookStatus.includes('pending')) return <LoadingComponent message='Loading book' />
+    if(!book) return <NotFound />
+    // function addBookToFavourites(bookId: number) {
+    //     setSubmitting(true);
+    //     agent.FavouriteBookList.addItem(bookId)
+    //         .then(favouriteBookList => setFavouriteBookList(favouriteBookList))
+    //         .catch(error => console.log(error))
+    //         .finally(() => setSubmitting(false));
+    // }
 
-    if (loading) return <LoadingComponent message="Loading books..." />
+    // function removeBookFromFavourites(bookId: number) {
+    //     setSubmitting(true);
+    //     agent.FavouriteBookList.removeItem(bookId, 1)
+    //         .then(() => removeItem(bookId, 1))
+    //         .catch(error => console.log(error))
+    //         .finally(() => setSubmitting(false))
+    // }
 
-    if (!book) return <NotFound />
+    // if (loading) return <LoadingComponent message="Loading books..." />
+    // if (!book) return <NotFound />
     return (
         <Grid container spacing={6}>
             <Grid item xs={6}>
@@ -84,11 +90,22 @@ export default function BookDetails() {
             <Grid item xs={6}>
                 <Typography variant='h3'>
                     {book.title}
-                    <LoadingButton loading={submitting}
-                        onClick={() => handleFavouriteClick(book.id)}
-                        size="small">
-                        {isFavourite ? <StarIcon fontSize="large" /> : <StarBorder fontSize="large" />}
-                    </LoadingButton>
+                    {
+                        user?
+                            <LoadingButton 
+                                loading={status.includes('pending')}
+                                onClick={() => handleFavouriteClick(book.id)}
+                                size="small">
+                                {isFavourite ? <StarIcon fontSize="large" /> : <StarBorder fontSize="large" />}
+                            </LoadingButton>
+                            :
+                            <LoadingButton 
+                                size="small"
+                                component={Link} to={`/login`}>                               
+                                <StarBorder fontSize="large" />
+                            </LoadingButton>
+                    }
+                    
                 </Typography>
 
                 <Divider sx={{ mb: 2 }} />
@@ -119,9 +136,15 @@ export default function BookDetails() {
                                     <Button href={book.link} target='_blank' size="small">Buy</Button>
                                 </TableCell>
                                 <TableCell>
-                                    <Button onClick={() => handleFavouriteClick(book.id)} size="small">
+                                    {user?
+                                        <Button 
+                                        onClick={() => handleFavouriteClick(book.id)} 
+                                        size="small">
                                         {isFavourite ? <text>remove from favourite</text> : <text>Add to favourite</text>}
-                                    </Button>
+                                    </Button>:
+                                         <Button component={Link} to={`/login`} size="small"><text>Add to favourite</text></Button>
+                                        }
+                                    
                                 </TableCell>
                             </TableRow>
                         </TableBody>

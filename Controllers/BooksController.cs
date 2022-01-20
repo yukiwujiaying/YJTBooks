@@ -80,23 +80,7 @@ namespace YJKBooks.Controllers
 
                 }                                               
                 
-                //var bookDtosQuery = (from book in query
-                //                       select new BookDto
-                //                       {
-                //                           Id = book.Id,
-                //                           Title = book.Title,
-                //                           Author = book.Author,
-                //                           Link = book.Link,
-                //                           Synopsis = book.Synopsis,
-                //                           Price = book.Price,
-                //                           PictureUrl = book.PictureUrl,
-                //                           IsFavourite = favouriteBookIds.Contains(book.Id),
-                //                           Genre = book.BookGenre
-                //                 });
-                //var bookDtos =    await PageList<BookDto>.ToPagedlist(bookDtosQuery, bookPrams.PageNumber,bookPrams.PageSize); 
-                //Response.AddPaginationHeader(bookDtos.MetaData);
 
-                //return bookDtos;
             }
             catch (Exception)
             {
@@ -108,7 +92,9 @@ namespace YJKBooks.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
+
             var book = await _context.Books.FindAsync(id);
+            var reviews = _context.Reviews.Where(d=> d.BookId.Equals(id)).ToList();
             if (book == null) return NotFound();
             return book;
         }

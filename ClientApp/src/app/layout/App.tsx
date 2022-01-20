@@ -1,6 +1,5 @@
-import React, { Component, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Route, Routes } from 'react-router';
-import { Home } from '../../components/home/Home';
 import AboutPage from '../../components/about/AboutPage';
 import { Container, CssBaseline } from "@mui/material";
 import Catalog from "../../components/catalog/Catalog";
@@ -12,30 +11,54 @@ import { useState } from "react";
 import ServerError from '../errors/ServerError';
 import NotFound from '../errors/NotFound';
 import FavouriteBookListPage from '../../components/FavouriteBookList/FavouriteBookListPage';
-import { useStoreContext } from '../context/StoreContext';
-import { getCookie } from './util/util';
-import agent from '../api/agent';
 import LoadingComponent from './LoadingComponent';
+import Register from '../../components/account/Register';
+import Login from '../../components/account/Login';
+import { useAppDispatch } from '../store/configureStore';
+import { fetchCurrentUser } from '../../components/account/accountSlice';
+import { fetchFavouriteBookListAsync } from '../../components/FavouriteBookList/FavouriteBookListSlice';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Home from '../../components/home/Home';
+import PrivateRoute from './PrivateRoute';
 
 
 function App() {
-  const {setFavouriteBookList} = useStoreContext();
-  const[loading, setloading]= useState(true);
+  const dispatch= useAppDispatch();
   
-  useEffect(()=>{
-    
-    console.log("setFavouriteBookList changed");
-
-    const userId = getCookie('userId');
-    if (userId){
-      agent.FavouriteBookList.get()
-           .then(favouriteBookList => setFavouriteBookList(favouriteBookList))
-           .catch(error => console.log(error))
-           .finally(() => setloading(false))
-    } else {
-      setloading(false);
+  const[loading, setloading]= useState(true);
+  const initApp= useCallback(async () =>{
+    try
+    {
+      await dispatch(fetchCurrentUser());
+      await dispatch(fetchFavouriteBookListAsync());
+      
     }
-  },[setFavouriteBookList])
+    catch(error)
+    {
+      console.log(error);
+    }
+  }, [dispatch])
+
+  useEffect(()=>{
+    initApp().then(()=>setloading(false));
+  },[initApp])
+  
+  // useEffect(()=>{
+    
+  //   console.log("setFavouriteBookList changed");
+
+  //   const userId = getCookie('userId');
+  //   if (userId){
+  //     agent.FavouriteBookList.get()
+  //          .then(favouriteBookList => setFavouriteBookList(favouriteBookList))
+  //          .catch(error => console.log(error))
+  //          .finally(() => setloading(false))
+      
+  //   } else {
+  //     setloading(false);
+  //   }
+  // },[setFavouriteBookList])
 
   const [darkMode, setDarkmode] = useState(false);
   const paletteType = darkMode ? 'dark' : 'light';
@@ -54,6 +77,7 @@ function App() {
   if (loading) return <LoadingComponent message='Initialising app...'/>
   return (
    <ThemeProvider theme={darkTheme}>
+     <ToastContainer position='bottom-right' hideProgressBar />
      <CssBaseline />
      <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
      <Container>
@@ -63,8 +87,11 @@ function App() {
         <Route path='/catalog/:Id' element={<BookDetails/>}/>
         <Route path='/about' element={<AboutPage/>}/>
         <Route path='/server-error' element={<ServerError/>}/>
-        <Route path='/FavouriteBookList' element={<FavouriteBookListPage/>} />
-        <Route  element={<NotFound/>}/>     
+        <Route path='/FavouriteBookList' element={<PrivateRoute><FavouriteBookListPage/></PrivateRoute>} />
+        <Route path='/login' element={<Login/>} />
+        <Route path='/register' element={<Register/>} />
+        <Route  element={<NotFound/>}/> 
+
        </Routes>
      </Container>
 

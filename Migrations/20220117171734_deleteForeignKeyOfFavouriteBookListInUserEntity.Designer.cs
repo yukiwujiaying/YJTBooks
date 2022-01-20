@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YJKBooks.Contexts;
 
 namespace YJKBooks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220117171734_deleteForeignKeyOfFavouriteBookListInUserEntity")]
+    partial class deleteForeignKeyOfFavouriteBookListInUserEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace YJKBooks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9706b3ac-c14b-4257-b06e-d44293771010",
-                            ConcurrencyStamp = "44fd34c1-2f24-4c19-8e86-cac2163e9808",
+                            Id = "9eba37fc-0565-4e4a-ad2b-8c34c379c871",
+                            ConcurrencyStamp = "0346877f-e2b5-4987-95b6-fb324ff45432",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "1f5d9569-66b3-41c2-9955-03a28a29a05b",
-                            ConcurrencyStamp = "7444ac08-95a9-4301-a313-084e04399c9a",
+                            Id = "8f73533d-4dbc-441d-8cad-15304d19c43a",
+                            ConcurrencyStamp = "77dde8b0-993c-4718-81ad-b3c7a925220f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -476,9 +478,6 @@ namespace YJKBooks.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("PublishedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");

@@ -30,39 +30,47 @@ namespace YJKBooks.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UsersDto>> Login(LoginDto loginDto)
         {
-            var user = await _userManager.FindByNameAsync(loginDto.Username);
-
-            if (user==null || ! await _userManager.CheckPasswordAsync(user,loginDto.Password))
-                return Unauthorized();
-            
-            var userBasket = await RetrieveFavouriteBookList(loginDto.Username);
-            var anonBasket = await RetrieveFavouriteBookList(Request.Cookies["userId"]);
-
-            if (anonBasket != null) 
+            try 
             {
-                //overwrite userBasket to anonBasket (add item from anonbasket to user)
-                if (userBasket != null) 
+                var user = await _userManager.FindByNameAsync(loginDto.Username);
+
+                if (user == null || !await _userManager.CheckPasswordAsync(user, loginDto.Password))
+                    return Unauthorized();
+
+                var userBasket = await RetrieveFavouriteBookList(loginDto.Username);
+                var anonBasket = await RetrieveFavouriteBookList(Request.Cookies["userId"]);
+
+                if (anonBasket != null)
                 {
-                    userBasket.Items.AddRange(anonBasket.Items);
-                } 
-                else
-                {
-                    //change the userId in the anon to user name, anonbasket transfer to user 
-                    anonBasket.UserId = user.UserName;
-                    _context.FavouriteBookList.Add(anonBasket);
+                    //overwrite userBasket to anonBasket (add item from anonbasket to user)
+                    if (userBasket != null)
+                    {
+                        userBasket.Items.AddRange(anonBasket.Items);
+                    }
+                    else
+                    {
+                        //change the userId in the anon to user name, anonbasket transfer to user 
+                        anonBasket.UserId = user.UserName;
+                        _context.FavouriteBookList.Update(anonBasket);
+                    }
+
+                    Response.Cookies.Delete("userId");
+                    await _context.SaveChangesAsync();
                 }
-                               
-                Response.Cookies.Delete("userId");
-                await _context.SaveChangesAsync();
-            }
-           userBasket = await RetrieveFavouriteBookList(user.UserName);
-            //once we have successfully login generate a token and return userDto
-            return new UsersDto
+                userBasket = await RetrieveFavouriteBookList(user.UserName);
+                //once we have successfully login generate a token and return userDto
+                return new UsersDto
+                {
+                    Email = user.Email,
+                    Token = await _tokenService.GenerateToken(user),
+                    FavouriteBooks = userBasket?.MapFavouriteBookListToDto()
+                };
+            } 
+            catch (Exception error)
             {
-                Email= user.Email,
-                Token =await  _tokenService.GenerateToken(user),
-                FavouriteBooks = userBasket?.MapFavouriteBookListToDto()
-            };
+                return Unauthorized();
+            }
+            
         }
 
         [HttpPost("register")]
@@ -85,6 +93,7 @@ namespace YJKBooks.Controllers
 
             return StatusCode(201);
         }
+       
 
         // this will protect the route at the end point
         [Authorize]

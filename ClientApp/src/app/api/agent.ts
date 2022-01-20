@@ -1,7 +1,9 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { myHistory } from "../../history";
 import { PaginatedResponse } from "../layout/models/pagination";
+import { store } from "../store/configureStore";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -11,6 +13,17 @@ axios.defaults.baseURL = 'https://localhost:44316/api/';
 axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data
+
+//axios interceptors are functions that Axios calls for every request. 
+//You can use interceptors to transform the request before Axios sends it, 
+//or transform the response before Axios returns the response to your code.
+axios.interceptors.request.use((config: AxiosRequestConfig) => {
+    const token = store.getState().account.user?.token;
+    if (token && config?.headers) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
 
 axios.interceptors.response.use(async response =>{
     await sleep();
@@ -39,7 +52,7 @@ axios.interceptors.response.use(async response =>{
             toast.error(data.title);
             break;
         case 401:
-            toast.error(data.title);
+            toast.error(data.title );
             break;
         case 500:
             myHistory.push('/server-error', { state: {error: data}});
@@ -73,16 +86,20 @@ const TestErrors ={
 }
 const FavouriteBookList = {
     get:() => request.get('FavouriteBookList'),
-    addItem:(bookId: number, quantity= 1)=> request.post(`FavouriteBookList?bookId=${bookId}&quantity=${quantity}`,{}),
+    addItem: (bookId: number) => request.post(`FavouriteBookList?bookId=${bookId}`, {}),
     removeItem:(bookId: number, quantity= 1)=> request.delete(`FavouriteBookList?bookId=${bookId}&quantity=${quantity}`)
-
 }
-
+const Account = {
+    login: (values: any) => request.post('account/login', values),
+    register: (values: any) => request.post('account/register', values),
+    currentUser: () => request.get('account/currentUser'),
+}
 
 const agent = {
     Catalog,
     TestErrors,
-    FavouriteBookList
+    FavouriteBookList,
+    Account
 }
 
 export default agent;

@@ -34,19 +34,19 @@ namespace YJKBooks
         {
 
             var connectionStringApplication = Configuration["connectionStrings:ApplicationDBConnectionString"];
-           services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "Jwt auth header",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
+            services.AddSwaggerGen(c =>
+             {
+                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                 {
+                     Description = "Jwt auth header",
+                     Name = "Authorization",
+                     In = ParameterLocation.Header,
+                     Type = SecuritySchemeType.ApiKey,
+                     Scheme = "Bearer"
+                 });
+                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                 {
                     {
                         new OpenApiSecurityScheme
                         {
@@ -61,8 +61,8 @@ namespace YJKBooks
                         },
                         new List<string>()
                     }
-                });
-            });
+                 });
+             });
 
             services.AddDbContext<ApplicationDbContext>(o =>
             {
@@ -75,7 +75,7 @@ namespace YJKBooks
             {
                 configuration.RootPath = "ClientApp/build";
             });
-           
+
             // using System.Text.Json.Serialization
             services.AddControllers()
                 .AddJsonOptions(options =>
@@ -98,7 +98,7 @@ namespace YJKBooks
                             ValidateIssuer = false,
                             ValidateAudience = false,
                             ValidateLifetime = true,
-                            ValidateIssuerSigningKey= true,
+                            ValidateIssuerSigningKey = true,
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWTSettings:ToKenKey"]))
                         };
                     });
@@ -109,7 +109,7 @@ namespace YJKBooks
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
+
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();
@@ -133,8 +133,8 @@ namespace YJKBooks
             app.UseSpaStaticFiles();
 
             app.UseRouting();
-
-
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

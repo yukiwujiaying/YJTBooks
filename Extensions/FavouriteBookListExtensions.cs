@@ -21,7 +21,10 @@ namespace YJKBooks.Extensions
                     Title = item.Book.Title,
                     Price = item.Book.Price,
                     PictureUrl = item.Book.PictureUrl,
-                    Genre = item.Book.BookGenre,
+                    Author = item.Book.Author,
+                    Link = item.Book.Link,
+                    Quantity = item.Quantity,
+                    Genre = item.Book.BookGenre,                 
                 }).ToList()
             };
         }

@@ -8,7 +8,6 @@ namespace YJKBooks.Entities
 {
     public class User : IdentityUser
     {
-        public ICollection<FavouriteBookList> FavouriteBooks { get; set; }
-        public ICollection<Reviews> UserReviews { get; set; }
+        
     }
 }

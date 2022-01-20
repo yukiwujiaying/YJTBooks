@@ -1,28 +1,30 @@
-import { Add, Delete, Remove } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import React from "react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import agent from "../../app/api/agent";
-import { useStoreContext } from "../../app/context/StoreContext";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { removeFavouriteBookListItemAsync } from "./FavouriteBookListSlice";
 
 
 export default function FavouriteBookListPage() {
+    const {favouriteBookList,status} =useAppSelector(state=>state.favouriteBookList);
+    console.log("favouriteBookList in header", favouriteBookList);
+    const dispatch = useAppDispatch();
 
-    const { favouriteBookList, removeItem } = useStoreContext();
-    const [status, setStatus] = useState({
-        loading: false,
-        name: ''
-    });
+    // const { favouriteBookList, removeItem } = useStoreContext();
+    // const [status, setStatus] = useState({
+    //     loading: false,
+    //     name: ''
+    // });
 
-    function handleRemoveItem(bookId: number, name: string, quantity = 1) {
-        setStatus({ loading: true, name: name });
-        agent.FavouriteBookList.removeItem(bookId, quantity)
-            .then(() => removeItem(bookId, quantity))
-            .catch(error => console.log(error))
-            .finally(() => setStatus({ loading: false, name: '' }))
-    }
+    // function handleRemoveItem(bookId: number, name: string, quantity = 1) {
+    //     setStatus({ loading: true, name: name });
+    //     agent.FavouriteBookList.removeItem(bookId, quantity)
+    //         .then(() => removeItem(bookId, quantity))
+    //         .catch(error => console.log(error))
+    //         .finally(() => setStatus({ loading: false, name: '' }))
+    // }
 
     if (!favouriteBookList) return <Typography variant='h3'>Your Favourite Book List is empty</Typography>
 
@@ -66,8 +68,14 @@ export default function FavouriteBookListPage() {
                                 <TableCell align="right">$ {((item.price * item.quantity)).toFixed(2)}</TableCell>
                                 <TableCell align="right">
                                     <LoadingButton
-                                        loading={status.loading && status.name === 'del' + item.bookId}
-                                        onClick={() => handleRemoveItem(item.bookId, 'del' + item.bookId, item.quantity)}
+                                        loading={status==='pendingRemoveItem'+ item.bookId +'del'} 
+                                        onClick={()=>dispatch(removeFavouriteBookListItemAsync({
+                                            bookId: item.bookId, 
+                                            quantity: 1,
+                                            name: 'del'
+                                        }))} 
+                                        // loading={status.loading && status.name === 'del' + item.bookId}
+                                        // onClick={() => handleRemoveItem(item.bookId, 'del' + item.bookId, item.quantity)}
                                         color='error'>
                                         <Delete />
                                     </LoadingButton>
