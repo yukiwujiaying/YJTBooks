@@ -11,7 +11,11 @@ namespace YJKBooks.Models
         public string Token { get; set; }
 
         public FavouriteBookListDto FavouriteBooks { get; set; }
-        public ReviewDto BookReviews { get; set; }
+        public List<ReviewDto> BookReviews { get; set; }
+
+        public string Id {get; set;}
+
+        public string UserName{get; set;}
 
     }
 }

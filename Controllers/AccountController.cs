@@ -42,14 +42,14 @@ namespace YJKBooks.Controllers
 
                 if (anonBasket != null)
                 {
-                    //overwrite userBasket to anonBasket (add item from anonbasket to user)
+                    //overwrite userBasket to anonBasket (add item from anonbasket to User)
                     if (userBasket != null)
                     {
                         userBasket.Items.AddRange(anonBasket.Items);
                     }
                     else
                     {
-                        //change the userId in the anon to user name, anonbasket transfer to user 
+                        //change the userId in the anon to User name, anonbasket transfer to User 
                         anonBasket.UserId = user.UserName;
                         _context.FavouriteBookList.Update(anonBasket);
                     }
@@ -62,8 +62,10 @@ namespace YJKBooks.Controllers
                 return new UsersDto
                 {
                     Email = user.Email,
+                    Id= user.Id,
                     Token = await _tokenService.GenerateToken(user),
-                    FavouriteBooks = userBasket?.MapFavouriteBookListToDto()
+                    FavouriteBooks = userBasket?.MapFavouriteBookListToDto(),
+                    UserName= user.UserName,
                 };
             } 
             catch (Exception error)
@@ -102,13 +104,64 @@ namespace YJKBooks.Controllers
         {
             //User object we can access in _userManager (not the entity)
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var userWithReviews= await _context.Users.Include(x=>x.BookReviews).ThenInclude(b=>b.Book).Where(x=>x.UserName==user.UserName).FirstOrDefaultAsync();
             var userBasket = await RetrieveFavouriteBookList(User.Identity.Name);
-
-            return new UsersDto
+            if (userWithReviews.BookReviews != null)
             {
-                Email = user.Email,
-                Token = await _tokenService.GenerateToken(user),
-                FavouriteBooks = userBasket?.MapFavouriteBookListToDto()
+                
+                var userDto= new UsersDto
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Token = await _tokenService.GenerateToken(user),
+                    FavouriteBooks = userBasket?.MapFavouriteBookListToDto(),
+                    UserName = user.UserName,
+                    BookReviews = userWithReviews?.BookReviews?.Select(review => new ReviewDto
+                    {
+                        BookTitle = review.Book.Title,
+                        PublishedDate = review.PublishedDate,
+                        Title = review.Title,
+                        Description = review.Description,
+                        Rating = review.Rating,
+                        UserName = review.User.UserName,
+                        Id = review.Id,
+                        BookId = review.BookId,
+                        PictureUrl = review.Book.PictureUrl,
+                    }).ToList()
+                };
+                return userDto;
+            }
+            else
+            {
+                var userDto = new UsersDto
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Token = await _tokenService.GenerateToken(user),
+                    FavouriteBooks = userBasket?.MapFavouriteBookListToDto(),
+                    UserName = user.UserName,
+                    BookReviews = null,
+                };
+                return userDto;
+            }
+            
+        }
+
+        private ReviewDto MapReviewToDto(Reviews review)
+        {
+            return new ReviewDto
+            {
+                Id = review.Id,
+                BookId = review.BookId,
+                BookTitle=review.Book.Title,
+                UserId = review.UserId,
+                Title = review.Title,
+                PublishedDate = review.PublishedDate,
+                Description = review.Description,
+                Rating = review.Rating,
+                UserName = review.User.UserName
+
+
             };
         }
 

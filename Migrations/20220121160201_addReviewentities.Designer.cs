@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YJKBooks.Contexts;
 
 namespace YJKBooks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220121160201_addReviewentities")]
+    partial class addReviewentities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace YJKBooks.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "20185b77-0f4e-4a6f-8640-8110eef54df7",
-                            ConcurrencyStamp = "0c862d93-1fb4-4ed7-8b2d-fa6325ac4fac",
+                            Id = "d5288a26-7384-4e66-a8c9-1d7f91320b74",
+                            ConcurrencyStamp = "9c704745-d192-4429-843b-a8b356294e8f",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "6c774ac7-fbb7-4284-9c7d-6631e9eab19e",
-                            ConcurrencyStamp = "d02da971-06e6-426d-90f6-7a1bab33eeaa",
+                            Id = "6f88e4b4-0109-47e5-a3ca-9f0868b3d5c6",
+                            ConcurrencyStamp = "00cd9f68-87ef-4258-959c-f500093246a9",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -642,7 +644,7 @@ namespace YJKBooks.Migrations
                         .IsRequired();
 
                     b.HasOne("YJKBooks.Entities.User", "User")
-                        .WithMany("BookReviews")
+                        .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Book");
@@ -658,11 +660,6 @@ namespace YJKBooks.Migrations
             modelBuilder.Entity("YJKBooks.Entities.FavouriteBookList", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("YJKBooks.Entities.User", b =>
-                {
-                    b.Navigation("BookReviews");
                 });
 #pragma warning restore 612, 618
         }

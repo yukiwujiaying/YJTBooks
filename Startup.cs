@@ -17,6 +17,8 @@ using YJKBooks.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Newtonsoft;
+using Newtonsoft.Json.Converters;
 
 namespace YJKBooks
 {
@@ -78,9 +80,13 @@ namespace YJKBooks
 
             // using System.Text.Json.Serialization
             services.AddControllers()
-                .AddJsonOptions(options =>
+                .AddNewtonsoftJson(options =>
                 {
-                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    //options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    //options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
                 });
             services.AddIdentityCore<User>(opt =>
             {

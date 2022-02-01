@@ -8,6 +8,6 @@ namespace YJKBooks.Entities
 {
     public class User : IdentityUser
     {
-        
+         public ICollection<Reviews> BookReviews { get; set; }
     }
 }

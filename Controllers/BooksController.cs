@@ -93,10 +93,10 @@ namespace YJKBooks.Controllers
         public async Task<ActionResult<Book>> GetBook(int id)
         {
 
-            var book = await _context.Books.FindAsync(id);
-            var reviews = _context.Reviews.Where(d=> d.BookId.Equals(id)).ToList();
+            var book = await _context.Books.Include(x => x.BookReviews).ThenInclude(u=>u.User).Where(x => x.Id == id).FirstOrDefaultAsync();
+                                            
             if (book == null) return NotFound();
-            return book;
+            return Ok(book);
         }
 
 

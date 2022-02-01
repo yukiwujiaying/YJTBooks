@@ -31,5 +31,6 @@ namespace YJKBooks.Models
 
         public Genre Genre { get; set; }
 
+
     }
 }
