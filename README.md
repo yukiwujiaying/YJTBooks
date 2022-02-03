@@ -63,9 +63,9 @@ Dark Mode                  |  Light Mode
   ![image](https://user-images.githubusercontent.com/92391502/152417697-d145f3f3-fb22-46ea-aa57-883e62bdd5b2.png)
   
 - Profile Page
- - Contains Favourite book list and the reviews they had written before.
- - User are able to modify and delete review in their profile Page
- - User are able to delete book in their favourite book list
- ![image](https://user-images.githubusercontent.com/92391502/152418278-4eecf865-a829-4e38-bd49-17b20f90f0d9.png)
- ![image](https://user-images.githubusercontent.com/92391502/152418345-33f91b6a-5680-4c40-9af2-22dd6ce2857a.png)
+  - Contains Favourite book list and the reviews they had written before.
+  - User are able to modify and delete review in their profile Page
+  - User are able to delete book in their favourite book list
+  ![image](https://user-images.githubusercontent.com/92391502/152418278-4eecf865-a829-4e38-bd49-17b20f90f0d9.png)
+  ![image](https://user-images.githubusercontent.com/92391502/152418345-33f91b6a-5680-4c40-9af2-22dd6ce2857a.png)
 
