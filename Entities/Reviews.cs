@@ -22,7 +22,7 @@ namespace YJKBooks.Entities
         [ForeignKey("UserId")]
         public User User { get; set; }
         public string UserId { get; set; }
-
+        
         [Required]
         [MaxLength(1000)]
         public string Description { get; set; }
@@ -33,8 +33,5 @@ namespace YJKBooks.Entities
         public int Rating { get; set; }
 
         public DateTime PublishedDate { get; set; }
- 
-
-
     }
 }

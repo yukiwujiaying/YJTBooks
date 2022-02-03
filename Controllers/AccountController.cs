@@ -147,23 +147,7 @@ namespace YJKBooks.Controllers
             
         }
 
-        private ReviewDto MapReviewToDto(Reviews review)
-        {
-            return new ReviewDto
-            {
-                Id = review.Id,
-                BookId = review.BookId,
-                BookTitle=review.Book.Title,
-                UserId = review.UserId,
-                Title = review.Title,
-                PublishedDate = review.PublishedDate,
-                Description = review.Description,
-                Rating = review.Rating,
-                UserName = review.User.UserName
 
-
-            };
-        }
 
         private async Task<FavouriteBookList> RetrieveFavouriteBookList(string userId)
         {

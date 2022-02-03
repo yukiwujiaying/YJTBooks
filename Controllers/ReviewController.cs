@@ -34,9 +34,8 @@ namespace YJKBooks.Controllers
                 PublishedDate = DateTime.Now,
                 UserId = userId,
                 BookId = bookId,
-
-
             };
+
             //condition
             var userReview = await _context.Reviews.FirstOrDefaultAsync(r => r.UserId == userId && r.BookId == bookId);
             if (userReview != null) return BadRequest(new ProblemDetails { Title = "You have already wrote a review for this book" });
@@ -50,12 +49,12 @@ namespace YJKBooks.Controllers
 
         }
 
-        [HttpPut("modifyreview")]
+        [HttpPost("modifyreview/{id}")]
         //string title, string description, int rating, int Id
-        public async Task<ActionResult> ModifyReview(UpdateReviewDto review)
+        public async Task<ActionResult> ModifyReview(UpdateReviewDto review, int id)
         {
             //get review
-            var currentReview = await _context.Reviews.FindAsync(review.Id);
+            var currentReview = await _context.Reviews.FindAsync(id);
             if(currentReview==null) return BadRequest(new ProblemDetails { Title = "Problem fetching your review" });
 
             //update review
@@ -67,7 +66,9 @@ namespace YJKBooks.Controllers
             //save changes
             var result = await _context.SaveChangesAsync() > 0;
             if (!result) return BadRequest(new ProblemDetails { Title = "Problem saving your review" });
-            return Ok();
+            
+            var saveReview = await _context.Reviews.Include(r => r.User).Include(r => r.Book).FirstOrDefaultAsync(r => r.UserId == currentReview.UserId && r.BookId == currentReview.BookId);
+            return Ok(MapReviewToDto(saveReview));
              
         }
 
@@ -95,16 +96,15 @@ namespace YJKBooks.Controllers
             return new ReviewDto
             {
                 Id = review.Id,
-                BookId = review.BookId,
-                BookTitle=review.Book.Title,
-                UserId = review.UserId,
-                Title = review.Title,
                 PublishedDate = review.PublishedDate,
+                Title = review.Title,
+                UserId = review.UserId,
                 Description = review.Description,
-                Rating = review.Rating,
-                UserName = review.User.UserName
-
-
+                BookId = review.BookId,
+                Rating = review.Rating,                
+                BookTitle = review.Book.Title,
+                UserName = review.User.UserName,
+                PictureUrl=review.Book.PictureUrl,
             };
         }
 

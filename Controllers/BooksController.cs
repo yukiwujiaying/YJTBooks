@@ -81,6 +81,7 @@ namespace YJKBooks.Controllers
                 }                                               
                 
 
+
             }
             catch (Exception)
             {
@@ -90,15 +91,58 @@ namespace YJKBooks.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBook(int id)
+        public async Task<ActionResult<BookDto>> GetBook(int id)
         {
-
-            var book = await _context.Books.Include(x => x.BookReviews).ThenInclude(u=>u.User).Where(x => x.Id == id).FirstOrDefaultAsync();
+            var book = await _context.Books
+                                     .Include(x => x.BookReviews)
+                                     .ThenInclude(u => u.User)
+                                     .Where(x => x.Id == id)
+                                     .FirstOrDefaultAsync();
                                             
             if (book == null) return NotFound();
-            return Ok(book);
-        }
 
+            var bookDto = new BookDto 
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Author = book.Author,
+                Link = book.Link,
+                Synopsis = book.Synopsis,
+                Price = book.Price,
+                PictureUrl = book.PictureUrl,
+                Genre = book.BookGenre,
+                BookReviews = MapReviewDtos(book.BookReviews)
+            };
+
+            return Ok(bookDto);
+        }
+        
+        private ICollection<ReviewDto> MapReviewDtos(ICollection<Reviews> reviews)
+        {
+            ReviewDto MapReviewToDto(Reviews review)
+            {
+                return new ReviewDto
+                {
+                    Id = review.Id,
+                    PublishedDate = review.PublishedDate,
+                    Title = review.Title,
+                    UserId = review.UserId,
+                    Description = review.Description,
+                    BookId = review.BookId,
+                    Rating = review.Rating,                
+                    BookTitle = review.Book.Title,
+                    UserName = review.User.UserName
+                };
+            }
+
+            var reviewsDtos = new List<ReviewDto>();
+
+            foreach(var review in reviews) {
+                reviewsDtos.Add(MapReviewToDto(review));
+            }
+
+            return reviewsDtos;
+        }       
 
         [HttpGet("filters")]
         public async Task<IActionResult> GetFilters()
