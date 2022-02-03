@@ -70,7 +70,7 @@ export default function BookCard({ book }: Props) {
                     £{(book.price).toFixed(2)}
                 </Typography>
                 <Typography>
-                    {book.bookGenre}
+                    {book.genre}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {book.author}

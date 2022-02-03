@@ -17,18 +17,8 @@ const sortOptions = [
 ]
 export default function Catalog() {
     const books = useAppSelector(bookSelectors.selectAll)
-    const {filtersLoaded,booksLoaded, genres, bookParams,metaData } = useAppSelector(state => state.catalog);
+    const { filtersLoaded, booksLoaded, genres, bookParams, metaData } = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
-
-    // const [books, setbooks] = useState<Book[]>([]);
-    // const [loading, setLoading] =  useState(true);
-
-    // useEffect(()=>{
-    //   agent.Catalog.list().then(books => setbooks(books))
-    //                       .catch(error => console.log(error))
-    //                       .finally(()=>setLoading(false))
-    // }, []);
-    
 
     useEffect(() => {
         if (!booksLoaded) dispatch(fetchBooksAsync());
@@ -40,13 +30,11 @@ export default function Catalog() {
 
     if (!filtersLoaded) return <LoadingComponent message="Loading products..." />
 
-    console.log(genres);
-      
     return (
-        <Grid container spacing={4}>            
+        <Grid container spacing={4}>
             <Grid item xs={3}>
                 <Paper sx={{ mb: 2 }}>
-                    <BookSearch />      
+                    <BookSearch />
                 </Paper>
                 <Paper sx={{ mb: 2, p: 2 }}>
                     <RadioButtonGroup
@@ -64,7 +52,7 @@ export default function Catalog() {
                 </Paper>
             </Grid>
             <Grid item xs={9}>
-                <BookList books={books}/>
+                <BookList books={books} />
             </Grid>
             <Grid item xs={3} />
             <Grid item xs={9} sx={{ mb: 2 }}>
@@ -74,7 +62,7 @@ export default function Catalog() {
                         metaData={metaData}
                         onPageChange={(page: number) => dispatch(setPageNumber({ pageNumber: page }))} />}
             </Grid>
-            
+
         </Grid>
     );
 }
