@@ -21,6 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from '../../components/home/Home';
 import PrivateRoute from './PrivateRoute';
+import Profile from '../../components/account/Profile';
 
 
 function App() {
@@ -90,6 +91,7 @@ function App() {
         <Route path='/FavouriteBookList' element={<PrivateRoute><FavouriteBookListPage/></PrivateRoute>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/register' element={<Register/>} />
+        <Route path='/profile' element={<Profile/>} />
         <Route  element={<NotFound/>}/> 
 
        </Routes>

@@ -9,24 +9,23 @@ import { LoadingButton } from '@mui/lab';
 import { StarBorder } from '@mui/icons-material';
 import StarIcon from '@mui/icons-material/Star';
 import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
-import { bookSelectors, fetchBookAsync } from './catalogSlice';
 import { addFavouriteBookListItemAsync, removeFavouriteBookListItemAsync } from '../FavouriteBookList/FavouriteBookListSlice';
+import BookReview from './BookReview';
+import { fetchBookAsync, ClearState } from './bookSlice';
+import AddReview from '../../app/layout/AddReview';
 
 export default function BookDetails() {
-    //const { favouriteBookList, setFavouriteBookList, removeItem } = useStoreContext();
-    //const [book, setBook] = useState<Book | null>(null);
-    //const [submitting, setSubmitting] = useState(false);
-    //const [loading, setloading] = useState(true);
     const {favouriteBookList,status} = useAppSelector(state=>state.favouriteBookList);
-    const{status:bookStatus}= useAppSelector(state=>state.catalog);
     const dispatch = useAppDispatch();
     let { Id } = useParams();
     const [isFavourite, setIsFavourite] = useState(false);
-    const book = useAppSelector(state=>bookSelectors.selectById(state,Id!));
     const {user} = useAppSelector(state=>state.account);
-    
+    const {book, status:bookStatus} = useAppSelector(state=>state.book);
+
     useEffect(()=>{
+        console.log("useEffect", book);
         if(!book) dispatch(fetchBookAsync(parseInt(Id!)));
+        
     },[Id,dispatch, book])
 
     // useEffect(() => {
@@ -49,7 +48,7 @@ export default function BookDetails() {
             setIsFavourite(false);
         }
 
-    }, [book])
+    }, [book, favouriteBookList])
 
     function handleFavouriteClick(bookId: number) {
 
@@ -125,7 +124,7 @@ export default function BookDetails() {
                             </TableRow>
                             <TableRow>
                                 <TableCell>Genre</TableCell>
-                                <TableCell>{book.bookGenre}</TableCell>
+                                <TableCell>{book.genre}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Synopsis</TableCell>
@@ -140,9 +139,9 @@ export default function BookDetails() {
                                         <Button 
                                         onClick={() => handleFavouriteClick(book.id)} 
                                         size="small">
-                                        {isFavourite ? <text>remove from favourite</text> : <text>Add to favourite</text>}
+                                        {isFavourite ? <span>remove from favourite</span> : <span>Add to favourite</span>}
                                     </Button>:
-                                         <Button component={Link} to={`/login`} size="small"><text>Add to favourite</text></Button>
+                                         <Button component={Link} to={`/login`} size="small"><span>Add to favourite</span></Button>
                                         }
                                     
                                 </TableCell>
@@ -150,8 +149,22 @@ export default function BookDetails() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Button variant="contained" component={Link} to={`/catalog/`}>Return</Button>
+                <Button variant="contained" component={Link} to={`/catalog/`} onClick={()=>{dispatch(ClearState())}}>Return</Button>
+               
             </Grid>
+            {user&&  <AddReview bookId={book.id} userId={user.id}/> }
+           
+            {book.bookReviews && 
+            
+                book.bookReviews.map(review=>(
+                    <Grid item xs={12} key={review.id} > <BookReview 
+                                                            publishedDate={review.publishedDate} 
+                                                            title={review.title} description={review.description} 
+                                                            username={review.userName} 
+                                                            rating={review.rating}/></Grid>
+                ))}
+            
         </Grid>
+        
     )
 }

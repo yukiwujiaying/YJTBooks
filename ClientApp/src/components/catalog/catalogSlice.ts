@@ -50,6 +50,7 @@ export const fetchBookAsync= createAsyncThunk<Book, number>(
     async(bookId, thunkAPI) =>{
         try
         {
+            console.log("slice bookId", bookId);
             return await agent.Catalog.details(bookId);
         } 
         catch(error:any)
@@ -126,9 +127,11 @@ export const catalogSlice = createSlice({
 
         //fetch single book
         builder.addCase(fetchBookAsync.pending,(state)=>{
-            state.status ='idle';
+            state.status ='pendingFetchBook';
         });
         builder.addCase(fetchBookAsync.fulfilled, (state,action)=>{
+            console.log("reducer", action);
+            console.log("reducer state", state);
            //add the entity to the collection, updates the existing entity in the store if it's already present
            booksAdapter.upsertOne(state, action.payload);
             state.status ='idle';

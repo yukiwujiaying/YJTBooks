@@ -1,11 +1,15 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { FavouriteBookList } from "../layout/models/favouritebooklist";
 import React from "react";
+import { User } from "../layout/models/user";
 
 interface StoreContextValue{
     favouriteBookList: FavouriteBookList | null;
     setFavouriteBookList :(favouriteBookList: FavouriteBookList) => void;
     removeItem: (bookId: number, quantity: number)  => void;
+    user: User|null;
+    setUser:(user:User)=>void;
+    removeReview:(id:number)=>void;
 }
 
 export const StoreContext = createContext<StoreContextValue | undefined>(undefined);
@@ -15,7 +19,7 @@ export const StoreContext = createContext<StoreContextValue | undefined>(undefin
 export function useStoreContext(){
     const context = useContext(StoreContext);
 
-    if (context == undefined){
+    if (context === undefined){
         throw Error('Oops - we do not seem to be inside the provider');
     }
 
@@ -24,6 +28,7 @@ export function useStoreContext(){
 
 export function StoreProvider({children}:PropsWithChildren<any>){
     const [favouriteBookList, setFavouriteBookList] = useState<FavouriteBookList| null>(null);
+    const [user,setUser]=  useState<User|null>(null);
 
     function removeItem(bookId: number, quantity: number){
         if (!favouriteBookList) return;
@@ -45,9 +50,23 @@ export function StoreProvider({children}:PropsWithChildren<any>){
         }
 
     }
+    function removeReview(id:number){
+        if (!user?.bookReviews) return;
+        const reviews=[...user.bookReviews]
+        const reviewIndex=reviews.findIndex(i=>i.id===id);
+      
+        if (reviewIndex>=0){
+            reviews.splice(reviewIndex,1);
+            setUser(preState=>{
+                return{...preState!,reviews}
+            });
+        console.log("StoreContext User",user);
+        }
+        
+    }
 
     return (
-        <StoreContext.Provider value={{favouriteBookList ,setFavouriteBookList, removeItem}}>
+        <StoreContext.Provider value={{favouriteBookList ,setFavouriteBookList, removeItem, user, setUser,removeReview}}>
             {children}
         </StoreContext.Provider>
     )

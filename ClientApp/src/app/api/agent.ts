@@ -87,7 +87,7 @@ const TestErrors ={
 const FavouriteBookList = {
     get:() => request.get('FavouriteBookList'),
     addItem: (bookId: number) => request.post(`FavouriteBookList?bookId=${bookId}`, {}),
-    removeItem:(bookId: number, quantity= 1)=> request.delete(`FavouriteBookList?bookId=${bookId}&quantity=${quantity}`)
+    RemoveItem:(bookId: number, quantity= 1)=> request.delete(`FavouriteBookList?bookId=${bookId}&quantity=${quantity}`)
 }
 const Account = {
     login: (values: any) => request.post('account/login', values),
@@ -95,11 +95,18 @@ const Account = {
     currentUser: () => request.get('account/currentUser'),
 }
 
+const Review = {
+    addReview:(values:any, bookId:number, userId:string)=> request.post(`Review/addreview/${bookId}/${userId}`,values),
+    modifyReview:(values:any, id:number)=> request.post(`Review/modifyreview/${id}`,values),
+    deleteReview:(Id:number)=> request.delete(`Review?Id=${Id}`),
+}
+
 const agent = {
     Catalog,
     TestErrors,
     FavouriteBookList,
-    Account
+    Account,
+    Review
 }
 
 export default agent;

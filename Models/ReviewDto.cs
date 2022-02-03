@@ -11,7 +11,7 @@ namespace YJKBooks.Models
         public string BookTitle { get; set; }
         public int Id { get; set; }
         public int BookId { get; set; }
-        public string UserId;
+        public string UserId {get; set;}
         public DateTime PublishedDate;
         public string Title { get; set; }
         public string Description { get; set; }

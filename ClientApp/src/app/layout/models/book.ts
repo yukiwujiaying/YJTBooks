@@ -6,8 +6,9 @@ export interface Book {
     synopsis: string;
     price: number;
     pictureUrl: string;
-    bookGenre: string;
+    genre: string;
     isFavourite: boolean;
+    bookReviews: Reviews[];
 }
 
 export interface BookParams {
@@ -17,3 +18,19 @@ export interface BookParams {
     pageNumber:number;
     pageSize: number;
 }
+
+export interface Reviews{
+    id: number;
+    publishedDate: string;
+    title: string;
+    userId: string;
+    description: string;
+    bookId: number;
+    rating: number;
+    //user: UserForReview;    
+    userName:string;
+}
+
+// export interface UserForReview{
+//     userName:string;
+// }

@@ -54,7 +54,7 @@ export const removeFavouriteBookListItemAsync = createAsyncThunk<void, { bookId:
    async({bookId,quantity}, thunkAPI)=>{
        try
        {
-           await agent.FavouriteBookList.removeItem(bookId,quantity);
+           await agent.FavouriteBookList.RemoveItem(bookId,quantity);
        }
        catch(error:any){
            return thunkAPI.rejectWithValue({error: error.data});

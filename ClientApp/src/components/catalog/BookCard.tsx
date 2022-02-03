@@ -27,7 +27,7 @@ export default function BookCard({ book }: Props) {
         } else {
             setFavourite(false);
         }
-    }, [book])
+    }, [book,favouriteBookList])
 
     function handleClick(bookId: number){
         setFavourite(!favourite);
@@ -37,40 +37,11 @@ export default function BookCard({ book }: Props) {
         }
         dispatch(addFavouriteBookListItemAsync({bookId: bookId}));            
     }
-    // const [loading, setloading] = useState(false);
-    // const { setFavouriteBookList,removeItem } = useStoreContext();
-    // const [toggle, setToggle] = useState(book.isFavourite);
-
-    // function handleAddItem(bookId: number) {
-    //     setloading(true);
-    //     agent.FavouriteBookList.addItem(bookId)
-    //         .then(favouriteBookList => setFavouriteBookList(favouriteBookList))
-    //         .catch(error => console.log(error))
-    //         .finally(() => setloading(false));
-    // }
-
-    // function handleRemoveItem(bookId: number, quantity = 1){
-    //     setloading(true);
-    //     agent.FavouriteBookList.removeItem(bookId,quantity)
-    //          .then(()=>removeItem(bookId,quantity))
-    //          .catch(error => console.log(error))
-    //          .finally(()=>setloading(false))
-    //   }
-
-    //   function handleClick(bookId: number, isFavourite: boolean){
-    //       setToggle( isFavourite )
-    //       if(isFavourite){ 
-    //           handleAddItem(bookId)
-    //         }else{
-    //             handleRemoveItem(bookId);
-    //         }
-    //    }
-      
+    
     return (
         <Card sx={{ display: 'flex' }}>
             <CardMedia
                 component="img"
-                //height="140"
                 image={book.pictureUrl}
                 sx={{ objectFit: 'cover', bgcolor: 'primary.light', width: 180 }}
                 title={book.title}

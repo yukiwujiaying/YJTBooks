@@ -39,6 +39,8 @@ export default function Catalog() {
     }, [dispatch, filtersLoaded])
 
     if (!filtersLoaded) return <LoadingComponent message="Loading products..." />
+
+    console.log(genres);
       
     return (
         <Grid container spacing={4}>            

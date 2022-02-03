@@ -2,8 +2,8 @@ import { Grade } from "@mui/icons-material";
 import { AppBar, Badge, IconButton, List, ListItem, Switch, Toolbar, Typography,Box } from "@mui/material";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useStoreContext } from "../context/StoreContext";
-import { useAppSelector } from "../store/configureStore";
+import { ClearState } from "../../components/catalog/bookSlice";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import SignedInMenu from "./SignedInMenu";
 
 interface Props{
@@ -37,6 +37,7 @@ const navStyles={
 export default function Header({darkMode, handleThemeChange}:Props){
     const {favouriteBookList} = useAppSelector(state=>state.favouriteBookList);
     const {user} = useAppSelector(state=>state.account);
+    const dispatch = useAppDispatch();
     console.log(favouriteBookList);
     const itemCount = favouriteBookList?.items.length;
     console.log("itemCount:", itemCount);
@@ -58,6 +59,7 @@ export default function Header({darkMode, handleThemeChange}:Props){
                     to={path}
                     key={path}
                     sx={navStyles}
+                    onClick={()=>{dispatch(ClearState())}}
                     >
                         {title.toUpperCase()}
                     </ListItem>
@@ -67,7 +69,7 @@ export default function Header({darkMode, handleThemeChange}:Props){
                 <Box display='flex' alignItems='center'>            
                     <IconButton component={Link} to='/favouriteBookList' size='large' sx={{color:'inherit'}}>
                         <Badge badgeContent={itemCount} color='secondary'>
-                           <Grade /> 
+                           <Grade onClick={()=>{dispatch(ClearState())}}/> 
                         </Badge>
                     </IconButton>
 
@@ -80,6 +82,7 @@ export default function Header({darkMode, handleThemeChange}:Props){
                             to={path}
                             key={path}
                             sx={navStyles}
+                            onClick={()=>{dispatch(ClearState())}}
                             >
                                 {title.toUpperCase()}
                             </ListItem>
