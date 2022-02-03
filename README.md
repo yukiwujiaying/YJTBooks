@@ -62,7 +62,7 @@ Dark Mode                  |  Light Mode
   - The Buy button is a link to amazon
   ![image](https://user-images.githubusercontent.com/92391502/152417697-d145f3f3-fb22-46ea-aa57-883e62bdd5b2.png)
   
--Profile Page
+- Profile Page
  - Contains Favourite book list and the reviews they had written before.
  - User are able to modify and delete review in their profile Page
  - User are able to delete book in their favourite book list
